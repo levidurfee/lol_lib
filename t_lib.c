@@ -1,9 +1,9 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <strings.h>
-#include "lol_inetz.h"
-#include "lol_threads.h"
-#include "lol_primes.h"
+#include "libz/lol_inetz.h"
+#include "libz/lol_threads.h"
+#include "libz/lol_primes.h"
 
 void* hello_world(void *threadid);
 
