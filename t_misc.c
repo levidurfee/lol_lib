@@ -17,7 +17,7 @@ int main(int argc, char *argv[]) {
     printf("%d\n", rn);
     
     int i;
-    int num = 10; // number of rans
+    int num = atoi(argv[2]); // number of rans
     int rns[num]; // random numbers
     lol_m_rand(max, num, rns);
     for(i=0;i<num;i++) {
