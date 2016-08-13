@@ -22,7 +22,6 @@ void lol_init_rand(void) {
 /* single random number */
 int lol_s_rand(int max) {
     int i_rand;
-    
     i_rand = rand() % max + 1;
     return i_rand;
 }
@@ -31,7 +30,7 @@ int lol_s_rand(int max) {
 int lol_m_rand(int max, int num, int i_rand[num]) {
     int i;
     for(i=0;i<num;i++) {
-        i_rand[i] = rand() % max + 1;
+        i_rand[i] = lol_s_rand(max);
     }
     return 0;
 }
