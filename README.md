@@ -1,5 +1,13 @@
 # lol lib
 
+## TOC
+
+* [Prime Numbers](https://github.com/levidurfee/lol_lib#prime-numbers)
+* [Threads](https://github.com/levidurfee/lol_lib#threads)
+* [Client/Server](https://github.com/levidurfee/lol_lib#client--server)
+* [Random Numbers](https://github.com/levidurfee/lol_lib#random-numbers)
+* [Simple Int Swap](https://github.com/levidurfee/lol_lib#simple-int-swap)
+
 ## Prime numbers
 
 Create a prime number using the OpenSSL library. It also uses the `lol_rand_entropy` function.
