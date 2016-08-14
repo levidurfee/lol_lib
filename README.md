@@ -39,7 +39,7 @@ void main(void) {
     lol_threads(hello_world, 1, 0, 0);
 }
 
-void hello_world(void *threadid) {
+void* hello_world(void *threadid) {
     long tid;
     tid = (long)threadid;
     printf("Thread #%ld\n", tid);
