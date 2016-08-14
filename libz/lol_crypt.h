@@ -20,10 +20,6 @@
 #ifndef LOL_CRYPT
 #define LOL_CRYPT
 
-int encrypt(unsigned char *plaintext, int plaintext_len, unsigned char *key,
-  unsigned char *iv, unsigned char *ciphertext);
-int decrypt(unsigned char *ciphertext, int ciphertext_len, unsigned char *key,
-  unsigned char *iv, unsigned char *plaintext);
 void handleErrors(void);
 
 int lol_crypt_init(void) {
@@ -41,9 +37,8 @@ int lol_crypt_bytes(int size, unsigned char rb[size]) {
     return size;
 }
 
-int encrypt(unsigned char *plaintext, int plaintext_len, unsigned char *key,
-  unsigned char *iv, unsigned char *ciphertext)
-{
+int lol_crypt_encrypt(unsigned char *plaintext, int plaintext_len, unsigned char *key,
+  unsigned char *iv, unsigned char *ciphertext) {
   EVP_CIPHER_CTX *ctx;
 
   int len;
@@ -80,7 +75,7 @@ int encrypt(unsigned char *plaintext, int plaintext_len, unsigned char *key,
   return ciphertext_len;
 }
 
-int decrypt(unsigned char *ciphertext, int ciphertext_len, unsigned char *key,
+int lol_crypt_decrypt(unsigned char *ciphertext, int ciphertext_len, unsigned char *key,
   unsigned char *iv, unsigned char *plaintext)
 {
   EVP_CIPHER_CTX *ctx;
