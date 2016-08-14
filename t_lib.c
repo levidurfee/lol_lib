@@ -15,8 +15,15 @@ int main(int argc, char *argv[]) {
     }
     loops = atoi(argv[1]);
     //lol_server(9191);
+
     /* function, join_threads, loops, output */
-    lol_threads(hello_world, 1, loops, 0);
+    lol_threadz_s lts;
+    lts.start_routine = hello_world;
+    lts.join_threads = 1;
+    lts.loops = loops;
+    lts.output = 0;
+    lol_threads(lts);
+
     //lol_client("levi.lol", 80);
     return 0;
 }
