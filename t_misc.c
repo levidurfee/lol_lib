@@ -32,7 +32,7 @@ int main(int argc, char *argv[]) {
     int e_num = 512;
     char e[e_num];
     lol_rand_entropy(e_num, e);
-    printf("%s\n", e);    
+    printf("%s\n", e);
     /* end entropy */
     
     /* begin int swap*/
