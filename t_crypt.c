@@ -9,11 +9,7 @@ int main(void) {
     int iv_size = 128;
     int ct_len;
     int dt_len;
-    
-    char *key_base64_e_output;
-    char *iv_base64_e_output;
-    unsigned char key_read_output[8192];
-    unsigned char iv_read_output[8192];
+        
     unsigned char key[key_size];
     unsigned char iv[iv_size];
     unsigned char ciphertext[8192];
@@ -32,16 +28,7 @@ int main(void) {
             printf("ERROR OPENING KEY FILE\n");
         }
         
-        fread(key_read_output, 8192, 8192, key_fp_r);
-        if(ferror(key_fp_r)) {
-            printf("KEY READ ERROR\n");
-            return -1;
-        }
-        
-        if( Base64Decode(key_read_output, &key, &key_size) != 0) {
-            printf("key decode failed\n");
-            return -1;
-        }
+        fread(key, 8192, 8192, key_fp_r);
         
         fclose(key_fp_r);
     } else {
@@ -49,8 +36,8 @@ int main(void) {
         key_fp = fopen(fn_key, "w");
         
         lol_crypt_bytes(key_size, key);
-        Base64Encode(key, key_size, &key_base64_e_output);
-        fwrite(key_base64_e_output, 1, sizeof key_base64_e_output, key_fp);
+  
+        fwrite(key, 1, sizeof key, key_fp);
         
         fclose(key_fp);
     }
@@ -59,16 +46,7 @@ int main(void) {
         FILE *iv_fp_r;
         iv_fp_r = fopen(fn_iv, "r");
         
-        fread(iv_read_output, 8192, 8192, iv_fp_r);
-        if(ferror(iv_fp_r)) {
-            printf("IV READ ERROR\n");
-            return -1;
-        }
-        
-        if( Base64Decode(iv_read_output, &iv, &iv_size) != 0) {
-            printf("iv decode failed\n");
-            return -1;
-        }
+        fread(iv, 8192, 8192, iv_fp_r);
         
         fclose(iv_fp_r);
     } else {
@@ -76,10 +54,8 @@ int main(void) {
         iv_fp = fopen(fn_iv, "w");
         
         lol_crypt_bytes(iv_size, iv);
-        
-        Base64Encode(iv, iv_size, &iv_base64_e_output);
 
-        fwrite(iv_base64_e_output, 1, sizeof iv_base64_e_output, iv_fp);
+        fwrite(iv, 1, sizeof iv, iv_fp);
         
         fclose(iv_fp);
     }
