@@ -32,9 +32,17 @@ int main(int argc, char *argv[]) {
     int e_num = 512;
     char e[e_num];
     lol_rand_entropy(e_num, e);
-    printf("%s\n", e);
-    
+    printf("%s\n", e);    
     /* end entropy */
+    
+    /* begin int swap*/
+    int isa, isb; // int swap a / b
+    isa = 20;
+    isb = 40;
+    printf("before\nisa: %i isb: %i\n", isa, isb);
+    lol_int_swap(&isa, &isb);
+    printf("after\nisa: %i isb: %i\n", isa, isb);
+    /* end int_swap */
     
     return 0;
 }

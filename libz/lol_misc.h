@@ -16,6 +16,14 @@
 #ifndef LOL_HELPER
 #define LOL_HELPER
 
+/* simple int swap */
+void lol_int_swap(int *a, int *b) {
+    int t;
+    t = *a;
+    *a = *b;
+    *b = t;
+}
+
 /* this needs to be ran before any other _rand functions */
 void lol_init_rand(void) {
     srand(time(NULL));
