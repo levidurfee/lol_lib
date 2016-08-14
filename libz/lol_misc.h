@@ -18,10 +18,10 @@
 
 /* simple int swap */
 void lol_int_swap(int *a, int *b) {
-    int t;
-    t = *a;
+    int s;
+    s = *a;
     *a = *b;
-    *b = t;
+    *b = s;
 }
 
 /* this needs to be ran before any other _rand functions */
