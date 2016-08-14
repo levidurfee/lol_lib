@@ -26,11 +26,7 @@ gcc -O3 -lcrypto -Wall -std=c99 -o lol_lib lol_lib.c
 Makes creating threads a little bit easier. Less clutter in your program if you use this function. **This still needs work.**
 
 ```c
-lol_threads(
-        void *(*start_routine) (void *), 
-        int join_threads,
-        int loops,
-        int output)
+lol_threads(lol_threadz_s lts)
 ```
 
 ### Example
@@ -39,7 +35,12 @@ lol_threads(
 void* hello_world(void *threadid);
 
 void main(void) {
-    lol_threads(hello_world, 1, 0, 0);
+    lol_threadz_s lts;
+    lts.start_routine = hello_world;
+    lts.join_threads = 1;
+    lts.loops = loops;
+    lts.output = 0;
+    lol_threads(lts);
 }
 
 void* hello_world(void *threadid) {
