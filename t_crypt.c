@@ -12,53 +12,52 @@ int main(void) {
         
     unsigned char key[key_size];
     unsigned char iv[iv_size];
-    unsigned char ciphertext[8192];
-    unsigned char decryptedtext[8192];
+    unsigned char ciphertext[LOL_CRYPT_LARGE];
+    unsigned char decryptedtext[LOL_CRYPT_LARGE];
     
     lol_crypt_init();
 
     char fn_key[] = ".key";
     char fn_iv[] = ".iv";
     
-    /* if key file exists */
+    FILE *key_fp;
+    FILE *iv_fp;
+    
     if( access( fn_key, F_OK ) != -1 ) {
-        FILE *key_fp_r;
-        key_fp_r = fopen(fn_key, "r");
-        if(key_fp_r == NULL) {
+        /* if key file exists */
+        key_fp = fopen(fn_key, "r");
+        if(key_fp == NULL) {
             printf("ERROR OPENING KEY FILE\n");
         }
-        
-        fread(key, 8192, 8192, key_fp_r);
-        
-        fclose(key_fp_r);
+        fread(key, LOL_CRYPT_LARGE, LOL_CRYPT_LARGE, key_fp);
     } else {
-        FILE *key_fp;
+        /* if key file does not exist */
         key_fp = fopen(fn_key, "w");
-        
+        if(key_fp == NULL) {
+            printf("ERROR OPENING KEY FILE\n");
+        }
         lol_crypt_bytes(key_size, key);
-  
         fwrite(key, 1, sizeof key, key_fp);
-        
-        fclose(key_fp);
     }
-    /* if iv file exists */
+    
     if( access( fn_iv, F_OK ) != -1 ) {
-        FILE *iv_fp_r;
-        iv_fp_r = fopen(fn_iv, "r");
-        
-        fread(iv, 8192, 8192, iv_fp_r);
-        
-        fclose(iv_fp_r);
+        /* if iv file exists */
+        iv_fp = fopen(fn_iv, "r");
+        if(iv_fp == NULL) {
+            printf("ERROR OPENING IV FILE\n");
+        }
+        fread(iv, LOL_CRYPT_LARGE, LOL_CRYPT_LARGE, iv_fp);
     } else {
-        FILE *iv_fp;
+        /* if iv file does not exist */
         iv_fp = fopen(fn_iv, "w");
-        
+        if(iv_fp == NULL) {
+            printf("ERROR OPENING IV FILE\n");
+        }
         lol_crypt_bytes(iv_size, iv);
-
         fwrite(iv, 1, sizeof iv, iv_fp);
-        
-        fclose(iv_fp);
     }
+    fclose(key_fp);
+    fclose(iv_fp);
         
     unsigned char *plaintext =
                 (unsigned char *)"Lorem ipsum dolor sit amet, no mel ferri eleifend. Duis expetendis dissentiet nam id, sed malorum referrentur te, ut magna copiosae sed. Cum ut accusamus sadipscing, ea splendide dissentiunt deterruisset sea, vim semper viderer verterem an. Eu mel epicuri abhorreant. Solum mundi duo id, cu quo liber saperet electram.  Cum lorem legimus accusam ex, ut quo dicat labores. Ea probo aperiri vim, hinc reprehendunt no sit. Suas tempor veritus eum ea. Accumsan deserunt consulatu duo id, iuvaret sanctus et eos, vel et choro graeco electram.  Ei errem vitae eos, probo consetetur vel ad, in ridens perfecto duo. Mea alii eruditi hendrerit et, vix ad melius deterruisset, fabellas urbanitas eam ad. At sed elitr menandri, ex nam novum oratio percipitur. Magna iisque ut sit, usu te vidisse accommodare, cum petentium persequeris eu. Duo eu inani semper accommodare, quot eius repudiare ut pro, iisque apeirian mnesarchum mea no.";
@@ -79,6 +78,5 @@ int main(void) {
     /* Clean up */
     EVP_cleanup();
     ERR_free_strings();
-    //decrypt(ct_len, ciphertext, *key, *iv);
     return 0;
 }

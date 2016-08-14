@@ -20,6 +20,8 @@
 #ifndef LOL_CRYPT
 #define LOL_CRYPT
 
+#define LOL_CRYPT_LARGE 8192
+
 void handleErrors(void);
 
 int lol_crypt_init(void) {
