@@ -15,6 +15,11 @@ lol_primes(char *r_string, int bits)
 char prime[512];
 lol_primes(prime, 2048);
 ```
+### Compile
+
+```bash
+gcc -O3 -lcrypto -Wall -std=c99 -o lol_lib lol_lib.c
+```
 
 ## Threads
 
@@ -44,6 +49,12 @@ void* hello_world(void *threadid) {
 }
 ```
 
+### Compile
+
+```bash
+gcc -O3 -pthread -Wall -std=c99 -o lol_lib lol_lib.c
+```
+
 ## Client / Server
 
 A simple client / server for communicating from a node and a server. **This still needs work.**
@@ -64,6 +75,13 @@ lol_server(8888);
 
 // Client.c
 lol_client("127.0.0.1", 8888, "Hi there, how are you?");
+```
+
+### Compile
+
+```bash
+gcc -O3 -g -Wall -std=c99 -o t_server t_server.c
+gcc -O3 -g -Wall -std=c99 -o t_client t_client.c
 ```
 
 ## Random numbers
@@ -101,6 +119,12 @@ lol_rand_entropy(e_num, e);
 printf("%s\n", e);
 ```
 
+### Compile
+
+```bash
+gcc -O3 -lcrypto -Wall -std=c99 -o lol_lib lol_lib.c
+```
+
 ## Simple int swap
 
 Change int variable `a` to int variable `b` and int variable `b` to int variable `a`.
@@ -115,4 +139,10 @@ lol_int_swap(int *a, int *b)
 int isa = 20;
 int isb = 30;
 lol_int_swap(isa, isb);
+```
+
+### Compile
+
+```bash
+gcc -O3 -Wall -std=c99 -o lol_lib lol_lib.c
 ```
