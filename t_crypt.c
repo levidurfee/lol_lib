@@ -60,7 +60,23 @@ int main(void) {
     fclose(iv_fp);
         
     unsigned char *plaintext =
-                (unsigned char *)"Lorem ipsum dolor sit amet, no mel ferri eleifend. Duis expetendis dissentiet nam id, sed malorum referrentur te, ut magna copiosae sed. Cum ut accusamus sadipscing, ea splendide dissentiunt deterruisset sea, vim semper viderer verterem an. Eu mel epicuri abhorreant. Solum mundi duo id, cu quo liber saperet electram.  Cum lorem legimus accusam ex, ut quo dicat labores. Ea probo aperiri vim, hinc reprehendunt no sit. Suas tempor veritus eum ea. Accumsan deserunt consulatu duo id, iuvaret sanctus et eos, vel et choro graeco electram.  Ei errem vitae eos, probo consetetur vel ad, in ridens perfecto duo. Mea alii eruditi hendrerit et, vix ad melius deterruisset, fabellas urbanitas eam ad. At sed elitr menandri, ex nam novum oratio percipitur. Magna iisque ut sit, usu te vidisse accommodare, cum petentium persequeris eu. Duo eu inani semper accommodare, quot eius repudiare ut pro, iisque apeirian mnesarchum mea no.";
+                (unsigned char *)"Lorem ipsum dolor sit amet, no mel ferrn\n \
+                eleifend. Duis expetendis dissentiet nam id, sed malorum r\n \
+                eferrentur te, ut magna copiosae sed. Cum ut accusamus sad\n \
+                ipscing, ea splendide dissentiunt deterruisset sea, vim se\n \
+                mper viderer verterem an. Eu mel epicuri abhorreant. Solum\n \
+                mundi duo id, cu quo liber saperet electram.  Cum lorem le\n \
+                gimus accusam ex, ut quo dicat labores. Ea probo aperiri v\n \
+                im, hinc reprehendunt no sit. Suas tempor veritus eum ea. \n \
+                Accumsan deserunt consulatu duo id, iuvaret sanctus et eos\n \
+                , vel et choro graeco electram.  Ei errem vitae eos, probo\n \
+                consetetur vel ad, in ridens perfecto duo. Mea alii erudit\n \
+                i hendrerit et, vix ad melius deterruisset, fabellas urban\n \
+                itas eam ad. At sed elitr menandri, ex nam novum oratio pe\n \
+                rcipitur. Magna iisque ut sit, usu te vidisse accommodare,\n \
+                cum petentium persequeris eu. Duo eu inani semper accommod\n \
+                are, quot eius repudiare ut pro, iisque apeirian mnesarchu\n \
+                m mea no.";
     
     ct_len = lol_crypt_encrypt(plaintext, strlen ((char *)plaintext), key, iv,
                             ciphertext);
