@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <string.h>
 
 #ifndef LOL_HELPER
 #define LOL_HELPER
@@ -21,17 +22,34 @@ void lol_init_rand(void) {
 }
 
 /* single random number */
-int lol_s_rand(int max) {
-    int i_rand = rand() % max + 1;
+int lol_rand_s(int min, int max) {
+    int i_rand = ( rand() % (max - min) ) + min;
     return i_rand;
 }
 
 /* array of random numbers */
-int lol_m_rand(int max, int num, int i_rand[num]) {
+int lol_rand_m(int min, int max, int num, int i_rand[num]) {
     int i;
     for(i=0;i<num;i++) {
-        i_rand[i] = lol_s_rand(max);
+        i_rand[i] = lol_rand_s(min, max);
     }
+    return 0;
+}
+
+int lol_rand_entropy(int num, char e[num]) {
+    int i, rn, len = 0;
+    char tmp[] = "";
+    for(i=0;i<num;i++) {
+        rn = lol_rand_s(32, 128); // keep it within ascii chars
+        sprintf(tmp, "%c", rn);
+        len += sprintf(e+len, tmp);
+    }
+    /*
+    FILE *fp;
+    fp = fopen("entropy.txt", "a");
+    fwrite(e, 256, 256, fp);
+    printf("%s\n", e);
+    */
     return 0;
 }
 #endif
