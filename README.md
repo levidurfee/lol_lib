@@ -155,3 +155,7 @@ lol_int_swap(isa, isb);
 ```bash
 gcc -O3 -Wall -std=c99 -o lol_lib lol_lib.c
 ```
+
+## Credits
+
+* [Barry Steyn](https://gist.github.com/barrysteyn/7308212)
