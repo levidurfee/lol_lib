@@ -15,14 +15,14 @@
 #ifndef LOL_HELPER
 #define LOL_HELPER
 
+/* this needs to be ran before any other _rand functions */
 void lol_init_rand(void) {
     srand(time(NULL));
 }
 
 /* single random number */
 int lol_s_rand(int max) {
-    int i_rand;
-    i_rand = rand() % max + 1;
+    int i_rand = rand() % max + 1;
     return i_rand;
 }
 
