@@ -47,9 +47,11 @@ int lol_rand_entropy(int num, char e[num]) {
     /*
     FILE *fp;
     fp = fopen("entropy.txt", "a");
-    fwrite(e, 256, 256, fp);
-    printf("%s\n", e);
+    fwrite(e, 1, num, fp);
+    fclose(fp);
     */
+    //printf("%s\n", e);
+    
     return 0;
 }
 #endif

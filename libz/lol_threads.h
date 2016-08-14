@@ -18,6 +18,14 @@
 #endif
 
 #ifndef LOL_THREADZ
+
+typedef struct lol_threadz {
+    void *(*start_routine) (void *);
+    int join_threads;
+    int loops;
+    int output;
+} lol_threadz_s;
+
 #define LOL_THREADZ
 int lol_threads(
         void *(*start_routine) (void *), 
