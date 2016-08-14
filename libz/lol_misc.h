@@ -44,6 +44,7 @@ int lol_rand_m(int min, int max, int num, int i_rand[num]) {
     return 0;
 }
 
+/* create a string of random entropy */
 int lol_rand_entropy(int num, char e[num]) {
     int i, rn, len = 0;
     char tmp[] = "";
