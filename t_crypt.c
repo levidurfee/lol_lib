@@ -85,7 +85,7 @@ int main(void) {
     }
         
     unsigned char *plaintext =
-                (unsigned char *)"The quick brown fox jumps over the lazy dog";
+                (unsigned char *)"Lorem ipsum dolor sit amet, no mel ferri eleifend. Duis expetendis dissentiet nam id, sed malorum referrentur te, ut magna copiosae sed. Cum ut accusamus sadipscing, ea splendide dissentiunt deterruisset sea, vim semper viderer verterem an. Eu mel epicuri abhorreant. Solum mundi duo id, cu quo liber saperet electram.  Cum lorem legimus accusam ex, ut quo dicat labores. Ea probo aperiri vim, hinc reprehendunt no sit. Suas tempor veritus eum ea. Accumsan deserunt consulatu duo id, iuvaret sanctus et eos, vel et choro graeco electram.  Ei errem vitae eos, probo consetetur vel ad, in ridens perfecto duo. Mea alii eruditi hendrerit et, vix ad melius deterruisset, fabellas urbanitas eam ad. At sed elitr menandri, ex nam novum oratio percipitur. Magna iisque ut sit, usu te vidisse accommodare, cum petentium persequeris eu. Duo eu inani semper accommodare, quot eius repudiare ut pro, iisque apeirian mnesarchum mea no.";
     
     ct_len = lol_crypt_encrypt(plaintext, strlen ((char *)plaintext), key, iv,
                             ciphertext);
