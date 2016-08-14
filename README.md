@@ -30,7 +30,7 @@ lol_threads(
         int output)
 ```
 
-## Example
+### Example
 
 ```c
 void* hello_world(void *threadid);
