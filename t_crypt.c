@@ -11,8 +11,8 @@ int main(void) {
     
     unsigned char key[key_size];
     unsigned char iv[iv_size];
-    unsigned char ciphertext[128];
-    unsigned char decryptedtext[128];
+    unsigned char ciphertext[8192];
+    unsigned char decryptedtext[8192];
     
     lol_crypt_init();
     
