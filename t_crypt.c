@@ -16,19 +16,19 @@ int main(void) {
     
     lol_crypt_init();
     
-    RAND_bytes(key, key_size);
-    RAND_bytes(iv, iv_size);
+    lol_crypt_bytes(key_size, key);
+    lol_crypt_bytes(iv_size, iv);
     
     unsigned char *plaintext =
                 (unsigned char *)"The quick brown fox jumps over the lazy dog";
     
-    ct_len = encrypt(plaintext, strlen ((char *)plaintext), key, iv,
+    ct_len = lol_crypt_encrypt(plaintext, strlen ((char *)plaintext), key, iv,
                             ciphertext);
     
     printf("Ciphertext is:\n");
     BIO_dump_fp (stdout, (const char *)ciphertext, ct_len);
     
-    dt_len = decrypt(ciphertext, ct_len, key, iv, decryptedtext);
+    dt_len = lol_crypt_decrypt(ciphertext, ct_len, key, iv, decryptedtext);
     decryptedtext[dt_len] = '\0';
 
     /* Show the decrypted text */
