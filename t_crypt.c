@@ -34,7 +34,7 @@ int main(void) {
     printf("Decrypted text is:\n");
     printf("%s\n", decryptedtext);
     
-    
+    /* TODO: move to lol_crypt (ability to read and write files) */
     unsigned char toenc[LOL_CRYPT_LARGE];
     FILE *fp;
     fp = fopen("test_files/to.enc", "r");
@@ -61,6 +61,7 @@ int main(void) {
     /* Show the decrypted text */
     printf("Decrypted text is:\n");
     printf("%s\n", decryptedtext);
+    /* END TODO */
     
     lol_crypt_cleanup();
     return 0;
