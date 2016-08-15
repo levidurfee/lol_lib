@@ -3,6 +3,7 @@
 #include <string.h>
 #include <unistd.h>
 #include "libz/lol_crypt.h"
+#define  MAX_LEN  80
 
 int main(void) {
     int key_size = 512;
@@ -21,36 +22,46 @@ int main(void) {
         
     unsigned char *plaintext =
                 (unsigned char *)"Lorem ipsum dolor sit amet, no mel ferrn\n \
-                eleifend. Duis expetendis dissentiet nam id, sed malorum r\n \
-                eferrentur te, ut magna copiosae sed. Cum ut accusamus sad\n \
-                ipscing, ea splendide dissentiunt deterruisset sea, vim se\n \
-                mper viderer verterem an. Eu mel epicuri abhorreant. Solum\n \
-                mundi duo id, cu quo liber saperet electram.  Cum lorem le\n \
-                gimus accusam ex, ut quo dicat labores. Ea probo aperiri v\n \
-                im, hinc reprehendunt no sit. Suas tempor veritus eum ea. \n \
-                Accumsan deserunt consulatu duo id, iuvaret sanctus et eos\n \
-                , vel et choro graeco electram.  Ei errem vitae eos, probo\n \
-                consetetur vel ad, in ridens perfecto duo. Mea alii erudit\n \
-                i hendrerit et, vix ad melius deterruisset, fabellas urban\n \
-                itas eam ad. At sed elitr menandri, ex nam novum oratio pe\n \
-                rcipitur. Magna iisque ut sit, usu te vidisse accommodare,\n \
-                cum petentium persequeris eu. Duo eu inani semper accommod\n \
-                are, quot eius repudiare ut pro, iisque apeirian mnesarchu\n \
-                m mea no.";
-    
+                eleifend.";
     ct_len = lol_crypt_encrypt(plaintext, strlen ((char *)plaintext), lc.key, lc.iv,
                             ciphertext);
-    
     printf("Ciphertext is:\n");
     BIO_dump_fp (stdout, (const char *)ciphertext, ct_len);
     
     dt_len = lol_crypt_decrypt(ciphertext, ct_len, lc.key, lc.iv, decryptedtext);
     decryptedtext[dt_len] = '\0';
-
     /* Show the decrypted text */
     printf("Decrypted text is:\n");
     printf("%s\n", decryptedtext);
-
+    
+    
+    unsigned char toenc[LOL_CRYPT_LARGE];
+    FILE *fp;
+    fp = fopen("test_files/to.enc", "r");
+    if(fp == NULL) {
+        printf("ERROR OPENING to.enc FILE\n");
+    }
+    fread(toenc, 10000, 1, fp);
+    fclose(fp);
+    ct_len = lol_crypt_encrypt(toenc, strlen ((char *)toenc), lc.key, lc.iv,
+                            ciphertext);
+    printf("Ciphertext is:\n");
+    BIO_dump_fp (stdout, (const char *)ciphertext, ct_len);
+    
+    BIO *out;
+    out = BIO_new_file("test_files/out.enc", "w");
+    if (!out) {
+        printf("ERROR IN WRITING OUT.ENC FILE\n");
+    }
+    BIO_printf(out, ciphertext);
+    BIO_free(out);
+    
+    dt_len = lol_crypt_decrypt(ciphertext, ct_len, lc.key, lc.iv, decryptedtext);
+    decryptedtext[dt_len] = '\0';
+    /* Show the decrypted text */
+    printf("Decrypted text is:\n");
+    printf("%s\n", decryptedtext);
+    
     lol_crypt_cleanup();
     return 0;
 }
