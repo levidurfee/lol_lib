@@ -16,48 +16,10 @@ int main(void) {
     unsigned char decryptedtext[LOL_CRYPT_LARGE];
     
     lol_crypt_init();
-
-    char fn_key[] = ".key";
-    char fn_iv[] = ".iv";
     
-    FILE *key_fp;
-    FILE *iv_fp;
+    lol_crypt lc;
     
-    if( access( fn_key, F_OK ) != -1 ) {
-        /* if key file exists */
-        key_fp = fopen(fn_key, "r");
-        if(key_fp == NULL) {
-            printf("ERROR OPENING KEY FILE\n");
-        }
-        fread(key, LOL_CRYPT_LARGE, LOL_CRYPT_LARGE, key_fp);
-    } else {
-        /* if key file does not exist */
-        key_fp = fopen(fn_key, "w");
-        if(key_fp == NULL) {
-            printf("ERROR OPENING KEY FILE\n");
-        }
-        lol_crypt_bytes(key_size, key);
-        fwrite(key, 1, sizeof key, key_fp);
-    }
-    
-    if( access( fn_iv, F_OK ) != -1 ) {
-        /* if iv file exists */
-        iv_fp = fopen(fn_iv, "r");
-        if(iv_fp == NULL) {
-            printf("ERROR OPENING IV FILE\n");
-        }
-        fread(iv, LOL_CRYPT_LARGE, LOL_CRYPT_LARGE, iv_fp);
-    } else {
-        /* if iv file does not exist */
-        iv_fp = fopen(fn_iv, "w");
-        if(iv_fp == NULL) {
-            printf("ERROR OPENING IV FILE\n");
-        }
-        lol_crypt_bytes(iv_size, iv);
-        fwrite(iv, 1, sizeof iv, iv_fp);
-    }
-    fclose(key_fp);
-    fclose(iv_fp);
+    lol_crypt_keyiv(key_size, iv_size, &lc);
         
     unsigned char *plaintext =
                 (unsigned char *)"Lorem ipsum dolor sit amet, no mel ferrn\n \
@@ -78,13 +40,13 @@ int main(void) {
                 are, quot eius repudiare ut pro, iisque apeirian mnesarchu\n \
                 m mea no.";
     
-    ct_len = lol_crypt_encrypt(plaintext, strlen ((char *)plaintext), key, iv,
+    ct_len = lol_crypt_encrypt(plaintext, strlen ((char *)plaintext), lc.key, lc.iv,
                             ciphertext);
     
     printf("Ciphertext is:\n");
     BIO_dump_fp (stdout, (const char *)ciphertext, ct_len);
     
-    dt_len = lol_crypt_decrypt(ciphertext, ct_len, key, iv, decryptedtext);
+    dt_len = lol_crypt_decrypt(ciphertext, ct_len, lc.key, lc.iv, decryptedtext);
     decryptedtext[dt_len] = '\0';
 
     /* Show the decrypted text */

@@ -22,8 +22,65 @@
 
 #define LOL_CRYPT_LARGE 8192
 
-void handleErrors(void);
+typedef struct lol_crypt {
+    unsigned char key[LOL_CRYPT_LARGE];
+    unsigned char iv[LOL_CRYPT_LARGE];
+} lol_crypt;
 
+void handleErrors(void);
+int lol_crypt_init(void);
+int lol_crypt_bytes(int size, unsigned char rb[size]);
+int lol_crypt_encrypt(unsigned char *plaintext, int plaintext_len, unsigned char *key,
+  unsigned char *iv, unsigned char *ciphertext);
+int lol_crypt_decrypt(unsigned char *ciphertext, int ciphertext_len, unsigned char *key,
+  unsigned char *iv, unsigned char *plaintext);
+int lol_crypt_keyiv(int key_size, int iv_size, lol_crypt *lc);  
+
+int lol_crypt_keyiv(int key_size, int iv_size, lol_crypt *lc) {
+    char fn_key[] = ".key";
+    char fn_iv[] = ".iv";
+    
+    FILE *key_fp;
+    FILE *iv_fp;
+    
+    if( access( fn_key, F_OK ) != -1 ) {
+        /* if key file exists */
+        key_fp = fopen(fn_key, "r");
+        if(key_fp == NULL) {
+            printf("ERROR OPENING KEY FILE\n");
+        }
+        fread(lc->key, LOL_CRYPT_LARGE, LOL_CRYPT_LARGE, key_fp);
+    } else {
+        /* if key file does not exist */
+        key_fp = fopen(fn_key, "w");
+        if(key_fp == NULL) {
+            printf("ERROR OPENING KEY FILE\n");
+        }
+        lol_crypt_bytes(key_size, lc->key);
+        fwrite(lc->key, 1, sizeof lc->key, key_fp);
+    }
+    
+    if( access( fn_iv, F_OK ) != -1 ) {
+        /* if iv file exists */
+        iv_fp = fopen(fn_iv, "r");
+        if(iv_fp == NULL) {
+            printf("ERROR OPENING IV FILE\n");
+        }
+        fread(lc->iv, LOL_CRYPT_LARGE, LOL_CRYPT_LARGE, iv_fp);
+    } else {
+        /* if iv file does not exist */
+        iv_fp = fopen(fn_iv, "w");
+        if(iv_fp == NULL) {
+            printf("ERROR OPENING IV FILE\n");
+        }
+        lol_crypt_bytes(iv_size, lc->iv);
+        fwrite(lc->iv, 1, sizeof lc->iv, iv_fp);
+    }
+    fclose(key_fp);
+    fclose(iv_fp);
+    return 0;
+}
+  
 int lol_crypt_init(void) {
     ERR_load_crypto_strings();
     OpenSSL_add_all_algorithms();
