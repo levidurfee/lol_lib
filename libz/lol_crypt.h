@@ -22,19 +22,21 @@
 
 #define LOL_CRYPT_LARGE 8192
 
+/* type to simplify key/iv creation */
 typedef struct lol_crypt {
     unsigned char key[LOL_CRYPT_LARGE];
     unsigned char iv[LOL_CRYPT_LARGE];
 } lol_crypt;
 
+/* declare functions */
 void handleErrors(void);
 int lol_crypt_init(void);
 int lol_crypt_bytes(int size, unsigned char rb[size]);
-int lol_crypt_encrypt(unsigned char *plaintext, int plaintext_len, unsigned char *key,
-  unsigned char *iv, unsigned char *ciphertext);
-int lol_crypt_decrypt(unsigned char *ciphertext, int ciphertext_len, unsigned char *key,
-  unsigned char *iv, unsigned char *plaintext);
-int lol_crypt_keyiv(int key_size, int iv_size, lol_crypt *lc);  
+int lol_crypt_encrypt(unsigned char *plaintext, int plaintext_len, unsigned char *key, unsigned char *iv, unsigned char *ciphertext);
+int lol_crypt_decrypt(unsigned char *ciphertext, int ciphertext_len, unsigned char *key, unsigned char *iv, unsigned char *plaintext);
+int lol_crypt_keyiv(int key_size, int iv_size, lol_crypt *lc);
+void lol_crypt_cleanup(void);
+/* end */
 
 int lol_crypt_keyiv(int key_size, int iv_size, lol_crypt *lc) {
     char fn_key[] = ".key";
@@ -179,4 +181,9 @@ void handleErrors(void)
   abort();
 }
 
+void lol_crypt_cleanup(void) {
+    /* Clean up */
+    EVP_cleanup();
+    ERR_free_strings();
+}
 #endif

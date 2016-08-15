@@ -15,11 +15,9 @@ int main(void) {
     unsigned char ciphertext[LOL_CRYPT_LARGE];
     unsigned char decryptedtext[LOL_CRYPT_LARGE];
     
-    lol_crypt_init();
-    
-    lol_crypt lc;
-    
-    lol_crypt_keyiv(key_size, iv_size, &lc);
+    lol_crypt_init(); /* needs to be run first */
+    lol_crypt lc; /* declare a new lol_crypt type */
+    lol_crypt_keyiv(key_size, iv_size, &lc); /* create key/iv */
         
     unsigned char *plaintext =
                 (unsigned char *)"Lorem ipsum dolor sit amet, no mel ferrn\n \
@@ -53,8 +51,6 @@ int main(void) {
     printf("Decrypted text is:\n");
     printf("%s\n", decryptedtext);
 
-    /* Clean up */
-    EVP_cleanup();
-    ERR_free_strings();
+    lol_crypt_cleanup();
     return 0;
 }
