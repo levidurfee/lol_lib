@@ -47,14 +47,14 @@ int lol_crypt_keyiv(int key_size, int iv_size, lol_crypt *lc) {
     
     if( access( fn_key, F_OK ) != -1 ) {
         /* if key file exists */
-        key_fp = fopen(fn_key, "r");
+        key_fp = fopen(fn_key, "rb");
         if(key_fp == NULL) {
             printf("ERROR OPENING KEY FILE\n");
         }
         fread(lc->key, LOL_CRYPT_LARGE, LOL_CRYPT_LARGE, key_fp);
     } else {
         /* if key file does not exist */
-        key_fp = fopen(fn_key, "w");
+        key_fp = fopen(fn_key, "wb");
         if(key_fp == NULL) {
             printf("ERROR OPENING KEY FILE\n");
         }
@@ -64,14 +64,14 @@ int lol_crypt_keyiv(int key_size, int iv_size, lol_crypt *lc) {
     
     if( access( fn_iv, F_OK ) != -1 ) {
         /* if iv file exists */
-        iv_fp = fopen(fn_iv, "r");
+        iv_fp = fopen(fn_iv, "rb");
         if(iv_fp == NULL) {
             printf("ERROR OPENING IV FILE\n");
         }
         fread(lc->iv, LOL_CRYPT_LARGE, LOL_CRYPT_LARGE, iv_fp);
     } else {
         /* if iv file does not exist */
-        iv_fp = fopen(fn_iv, "w");
+        iv_fp = fopen(fn_iv, "wb");
         if(iv_fp == NULL) {
             printf("ERROR OPENING IV FILE\n");
         }
