@@ -5,3 +5,4 @@ t_misc
 t_crypt
 entropy.txt
 test_files/output.txt
+output.txt
