@@ -3,6 +3,7 @@ t_server
 t_lib
 t_misc
 t_crypt
+t_primes
 entropy.txt
 test_files/output.txt
 output.txt
