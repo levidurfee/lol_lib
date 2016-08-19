@@ -36,7 +36,7 @@ void* hello_world(void *threadid) {
     tid = (long)threadid;
     
     printf(LOL_CYAN "Hello World! It's me, thread #%ld!" LOL_GREEN " ["\
-                        LOL_CYAN "%s" LOL_GREEN "]" LOL_RESET "\n", 
+                        LOL_RESET "%s" LOL_GREEN "]" LOL_RESET "\n", 
                         tid, prime);
     
     fp = fopen("output.txt", "a");
