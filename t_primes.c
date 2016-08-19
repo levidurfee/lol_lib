@@ -12,7 +12,7 @@ void* hello_world(void *threadid);
 int main(int argc, char *argv[]) {
     int loops;
     if(argc == 1) {
-        printf("Err.\n");
+        printf("Err. Usage:\n%s num_of_primes", argv[0]);
         return -1;
     }
     loops = atoi(argv[1]);
