@@ -15,6 +15,8 @@
 #include <openssl/crypto.h>
 #include "lol_misc.h"
 
+static pthread_mutex_t *lockarray;
+
 static void lock_callback(int mode, int type, char *file, int line);
 static unsigned long thread_id(void);
 static void init_locks(void);
@@ -28,16 +30,23 @@ void lol_primes(char *r_string, int bits) {
     char e[e_num];
     lol_init_rand();
     lol_rand_entropy(e_num, e);
+    /* below is for debugging */
+    /*
+    printf("Entropy: %s\n", e);
+    int e_len;
+    e_len = strlen(e);
+    printf("%i\n", e_len);
+    */
     
     static const char *rnd_seed = NULL;
     rnd_seed = e;
-    
     r = BN_new();
     RAND_seed(rnd_seed, sizeof rnd_seed);
     BN_generate_prime_ex(r, bits, 0, NULL, NULL, NULL);
-    strcpy(r_string, BN_bn2dec(r));
+    //strcpy(r_string, BN_bn2dec(r));
+    sprintf(r_string, "%s", BN_bn2dec(r));
 
-    BN_free(r);
+    BN_clear_free(r);
 }
 
 static void lock_callback(int mode, int type, char *file, int line) {

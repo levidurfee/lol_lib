@@ -13,6 +13,7 @@ int main(int argc, char *argv[]) {
         printf("Err.\n");
         return -1;
     }
+    init_locks();
     loops = atoi(argv[1]);
     //lol_server(9191);
 
@@ -24,6 +25,7 @@ int main(int argc, char *argv[]) {
     lts.output = 0;
     lol_threads(lts);
 
+    kill_locks();
     //lol_client("levi.lol", 80);
     return 0;
 }

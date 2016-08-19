@@ -47,12 +47,13 @@ int lol_rand_m(int min, int max, int num, int i_rand[num]) {
 /* create a string of random entropy */
 int lol_rand_entropy(int num, char e[num]) {
     int i, rn, len = 0;
-    char tmp[] = "";
+    char tmp[num];
     for(i=0;i<num;i++) {
         rn = lol_rand_s(32, 128); // keep it within ascii chars
         sprintf(tmp, "%c", rn);
         len += sprintf(e+len, tmp);
     }
+    
     /*
     FILE *fp;
     fp = fopen("entropy.txt", "a");

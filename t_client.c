@@ -14,6 +14,7 @@ int main(int argc, char *argv[]) {
         return -1;
     }
     loops = atoi(argv[1]);
+    init_locks();
     //lol_server(9191);
     /* function, join_threads, loops, output */
     lol_threadz_s lts;
@@ -22,7 +23,7 @@ int main(int argc, char *argv[]) {
     lts.loops = loops;
     lts.output = 0;
     lol_threads(lts);
-    
+    kill_locks();
     return 0;
 }
 

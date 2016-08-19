@@ -15,7 +15,7 @@ int main(int argc, char *argv[]) {
         return -1;
     }
     loops = atoi(argv[1]);
-
+    init_locks();
     /* function, join_threads, loops, output */
     lol_threadz_s lts;
     lts.start_routine = hello_world;
@@ -23,15 +23,14 @@ int main(int argc, char *argv[]) {
     lts.loops = loops;
     lts.output = 0;
     lol_threads(lts);
-    
+    kill_locks();
     return 0;
 }
 
 void* hello_world(void *threadid) {
     long tid;
-    char prime[4096];
+    char prime[1024];
     FILE *fp;
-    
     lol_primes(prime, 2048);
     tid = (long)threadid;
     printf("Hello World! It's me, thread #%ld! [%s]\n", tid, prime);
