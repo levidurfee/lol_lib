@@ -16,6 +16,8 @@
 #ifndef LOL_HELPER
 #define LOL_HELPER
 
+#define lol_clear() printf("\033[H\033[J")
+
 /* simple int swap */
 void lol_int_swap(int *a, int *b) {
     int s;
@@ -63,5 +65,8 @@ int lol_rand_entropy(int num, char e[num]) {
     //printf("%s\n", e);
     
     return 0;
+}
+void lol_gotoxy(int x, int y) {
+    printf("%c[%d;%df",0x1B,y,x);
 }
 #endif

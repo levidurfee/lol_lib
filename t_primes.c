@@ -4,6 +4,7 @@
 #include "libz/lol_threads.h"
 #include "libz/lol_primes.h"
 #include "libz/lol_crypt.h"
+#include "libz/lol_colors.h"
 #define  MAX_LEN  80
 
 void* hello_world(void *threadid);
@@ -33,7 +34,10 @@ void* hello_world(void *threadid) {
     FILE *fp;
     lol_primes(prime, 2048);
     tid = (long)threadid;
-    printf("Hello World! It's me, thread #%ld! [%s]\n", tid, prime);
+    
+    printf(LOL_CYAN "Hello World! It's me, thread #%ld!" LOL_GREEN " ["\
+                        LOL_CYAN "%s" LOL_GREEN "]" LOL_RESET "\n", 
+                        tid, prime);
     
     fp = fopen("output.txt", "a");
     

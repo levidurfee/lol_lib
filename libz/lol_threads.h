@@ -13,6 +13,7 @@
 #include <string.h>
 #include <pthread.h>
 #include "lol_colors.h"
+#include "lol_misc.h"
 
 #ifndef LOL_NUM_THREADS
 #define LOL_NUM_THREADS 5
@@ -37,6 +38,7 @@ int lol_threads(lol_threadz_s lts) {
     pthread_t threads[LOL_NUM_THREADS];
     loops = lts.loops / LOL_NUM_THREADS;
     while(loops > cnt) {
+        
         for(i=0;i<LOL_NUM_THREADS;i++) {
             if(lts.output == 1) {
                 printf("In main: creating thread %ld\n", i);
@@ -55,7 +57,13 @@ int lol_threads(lol_threadz_s lts) {
         }
         cnt++;
         progress = (cnt * 100) / loops;
-        printf(LOL_GREEN "Progress: %i percent" LOL_RESET "\n", progress);
+        lol_clear();
+        lol_gotoxy(0,0);
+        printf(LOL_GREEN "Progress: %i percent %i / %i" LOL_RESET "\n", 
+            progress, 
+            cnt * LOL_NUM_THREADS, 
+            loops * LOL_NUM_THREADS);
+        
     }
     pthread_exit(NULL);
     return 1;
