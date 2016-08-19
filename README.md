@@ -29,6 +29,10 @@ lol_primes(prime, 2048);
 gcc -O3 -lcrypto -Wall -std=c99 -o lol_lib lol_lib.c
 ```
 
+### Screenshot
+
+![t_primes compiled and running](https://cdn.levi.lol/i/KdU_GA.png)
+
 ## Threads
 
 Makes creating threads a little bit easier. Less clutter in your program if you use this function. **This still needs work.**
