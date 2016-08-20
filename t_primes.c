@@ -29,17 +29,20 @@ int main(int argc, char *argv[]) {
 }
 
 void* hello_world(void *threadid) {
+    int bits;
     long tid;
     char prime[1024];
+    char filename[20];
     FILE *fp;
-    lol_primes(prime, 512);
+    bits = 512;
+    lol_primes(prime, bits);
     tid = (long)threadid;
     
     printf(LOL_CYAN "Hello World! It's me, thread #%ld!" LOL_GREEN " ["\
                         LOL_RESET "%s" LOL_GREEN "]" LOL_RESET "\n", 
                         tid, prime);
-    
-    fp = fopen("output.txt", "a");
+    sprintf(filename, "%i-bits.txt", bits);
+    fp = fopen(filename, "a");
     
     fwrite(prime, 1, strlen(prime), fp);
     fwrite("\n", 1, strlen("\n"), fp);
