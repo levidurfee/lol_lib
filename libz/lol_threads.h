@@ -35,7 +35,7 @@ int lol_threads(lol_threadz_s lts) {
     //int LOL_NUM_THREADS = sysconf(_SC_NPROCESSORS_ONLN);
     int rc, cnt, loops, progress, tph;
     time_t start_t, end_t;
-    double diff_t;
+    double diff_t, time_left;
     time(&start_t);
     cnt = 0;
     long i;
@@ -70,7 +70,11 @@ int lol_threads(lol_threadz_s lts) {
         time(&end_t);
         diff_t = difftime(end_t, start_t) / 60 / 60;
         tph = (cnt * LOL_NUM_THREADS) / diff_t; // get threads per hour
-        printf(LOL_RED "Execution time = %f %i tph" LOL_RESET "\n", diff_t, tph);
+        time_left = (double)lts.loops / (double)tph;
+        printf(LOL_RED "[Execution time = %f] [%i tph] [hours left %f]" LOL_RESET "\n", 
+            diff_t, 
+            tph,
+            time_left);
     }
     pthread_exit(NULL);
     return 1;

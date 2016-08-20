@@ -32,7 +32,7 @@ void* hello_world(void *threadid) {
     long tid;
     char prime[1024];
     FILE *fp;
-    lol_primes(prime, 2048);
+    lol_primes(prime, 512);
     tid = (long)threadid;
     
     printf(LOL_CYAN "Hello World! It's me, thread #%ld!" LOL_GREEN " ["\
