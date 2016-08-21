@@ -17,7 +17,7 @@
 #include "lol_misc.h"
 
 #ifndef LOL_NUM_THREADS
-#define LOL_NUM_THREADS 4
+#define LOL_NUM_THREADS 8
 #endif
 
 #ifndef LOL_THREADZ
@@ -35,7 +35,7 @@ int lol_threads(lol_threadz_s lts) {
     //int LOL_NUM_THREADS = sysconf(_SC_NPROCESSORS_ONLN);
     int rc, cnt, loops, progress, tph;
     time_t start_t, end_t;
-    double diff_t, time_left;
+    double diff_t, total_time, time_left;
     time(&start_t);
     cnt = 0;
     long i;
@@ -63,18 +63,22 @@ int lol_threads(lol_threadz_s lts) {
         progress = (cnt * 100) / loops;
         lol_clear();
         lol_gotoxy(0,0);
-        printf(LOL_GREEN "Progress: %i percent %i / %i" LOL_RESET "\n", 
+        printf(LOL_BLUE "[" LOL_GREEN "Percent done:"
+        LOL_RESET "\t%i" LOL_BLUE "]"
+        LOL_GREEN "[%i / %i]\n", 
             progress, 
             cnt * LOL_NUM_THREADS, 
             loops * LOL_NUM_THREADS);
         time(&end_t);
         diff_t = difftime(end_t, start_t) / 60 / 60;
         tph = (cnt * LOL_NUM_THREADS) / diff_t; // get threads per hour
-        time_left = (double)lts.loops / (double)tph;
-        printf(LOL_RED "[Execution time = %f] [%i tph] [hours left %f]" LOL_RESET "\n", 
-            diff_t, 
-            tph,
-            time_left);
+        total_time = (double)lts.loops / (double)tph;
+        time_left = total_time - diff_t;
+        lol_pb_f("Total time", total_time);
+        lol_pb_f("Running time", diff_t);
+        lol_pb_f("Time left", time_left);
+        
+        lol_pb_i("Threads/hr", tph);
     }
     pthread_exit(NULL);
     return 1;

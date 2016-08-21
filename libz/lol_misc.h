@@ -12,6 +12,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
+#include "lol_colors.h"
 
 #ifndef LOL_HELPER
 #define LOL_HELPER
@@ -68,5 +69,14 @@ int lol_rand_entropy(int num, char e[num]) {
 }
 void lol_gotoxy(int x, int y) {
     printf("%c[%d;%df",0x1B,y,x);
+}
+
+void lol_pb_i(char *message, int i) {
+    printf(LOL_BLUE "[" 
+    LOL_GREEN "%s:" LOL_RESET "\t%i" LOL_BLUE "]" LOL_RESET "\n", message, i);
+}
+void lol_pb_f(char *message, float i) {
+    printf(LOL_BLUE "[" 
+    LOL_GREEN "%s:" LOL_RESET "\t%f" LOL_BLUE "]" LOL_RESET "\n", message, i);
 }
 #endif
