@@ -22,7 +22,7 @@ int main(int argc, char *argv[]) {
     lts.start_routine = hello_world;
     lts.join_threads = 1;
     lts.loops = loops;
-    lts.output = 0;
+    lts.output = 1;
     lol_threads(lts);
     kill_locks();
     return 0;
@@ -34,7 +34,7 @@ void* hello_world(void *threadid) {
     char prime[1024];
     char filename[20];
     FILE *fp;
-    bits = 512;
+    bits = 1024;
     lol_primes(prime, bits);
     tid = (long)threadid;
     
