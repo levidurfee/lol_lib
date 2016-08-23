@@ -38,7 +38,7 @@ void* hello_world(void *threadid) {
     lol_primes(prime, bits);
     tid = (long)threadid;
     
-    printf(LOL_CYAN "Hello World! It's me, thread #%ld!" LOL_GREEN " ["\
+    printf(LOL_CYAN "Hello World! It's me, thread #%02ld!" LOL_GREEN " ["\
                         LOL_RESET "%.50s..." LOL_GREEN "]" LOL_RESET "\n", 
                         tid, prime);
     sprintf(filename, "%i-bits.pri", bits);
