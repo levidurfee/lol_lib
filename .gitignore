@@ -7,3 +7,4 @@ t_primes
 entropy.txt
 test_files/output.txt
 output.txt
+*.pri

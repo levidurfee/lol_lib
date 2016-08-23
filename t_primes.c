@@ -41,7 +41,7 @@ void* hello_world(void *threadid) {
     printf(LOL_CYAN "Hello World! It's me, thread #%ld!" LOL_GREEN " ["\
                         LOL_RESET "%.50s..." LOL_GREEN "]" LOL_RESET "\n", 
                         tid, prime);
-    sprintf(filename, "%i-bits.txt", bits);
+    sprintf(filename, "%i-bits.pri", bits);
     fp = fopen(filename, "a");
     
     fwrite(prime, 1, strlen(prime), fp);
