@@ -31,15 +31,15 @@ int main(int argc, char *argv[]) {
 void* hello_world(void *threadid) {
     int bits;
     long tid;
-    char prime[1024];
+    char prime[8192];
     char filename[20];
     FILE *fp;
-    bits = 1024;
+    bits = 4096;
     lol_primes(prime, bits);
     tid = (long)threadid;
     
     printf(LOL_CYAN "Hello World! It's me, thread #%ld!" LOL_GREEN " ["\
-                        LOL_RESET "%s" LOL_GREEN "]" LOL_RESET "\n", 
+                        LOL_RESET "%.50s..." LOL_GREEN "]" LOL_RESET "\n", 
                         tid, prime);
     sprintf(filename, "%i-bits.txt", bits);
     fp = fopen(filename, "a");
