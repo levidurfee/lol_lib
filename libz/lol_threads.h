@@ -13,11 +13,12 @@
 #include <string.h>
 #include <pthread.h>
 #include <time.h>
+#include <stdint.h>
 #include "lol_colors.h"
 #include "lol_misc.h"
 
 #ifndef LOL_NUM_THREADS
-#define LOL_NUM_THREADS 5
+#define LOL_NUM_THREADS 4
 #endif
 
 #ifndef LOL_THREADZ
@@ -38,12 +39,12 @@ int lol_threads(lol_threadz_s lts) {
     double diff_t, total_time, time_left;
     time(&start_t);
     cnt = 0;
-    long i;
+    uint64_t i;
     pthread_t threads[LOL_NUM_THREADS];
     loops = lts.loops / LOL_NUM_THREADS;
     while(loops > cnt) {
         
-        for(i=0;i<LOL_NUM_THREADS;i++) {
+        for(i = 0;i<LOL_NUM_THREADS;i++) {
             if(lts.output == 1) {
                 //printf("In main: creating thread %ld\n", i);
             }
