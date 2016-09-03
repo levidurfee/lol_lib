@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "libz/lol_misc.h"
+#include "../libz/lol_misc.h"
 
 int main(int argc, char *argv[]) {
     if(argc == 1) {

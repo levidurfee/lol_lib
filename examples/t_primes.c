@@ -1,10 +1,10 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <strings.h>
-#include "libz/lol_threads.h"
-#include "libz/lol_primes.h"
-#include "libz/lol_crypt.h"
-#include "libz/lol_colors.h"
+#include "../libz/lol_threads.h"
+#include "../libz/lol_primes.h"
+#include "../libz/lol_crypt.h"
+#include "../libz/lol_colors.h"
 #define  MAX_LEN  80
 
 void* hello_world(void *threadid);

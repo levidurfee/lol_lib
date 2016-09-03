@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-#include "libz/lol_crypt.h"
+#include "../libz/lol_crypt.h"
 #define  MAX_LEN  80
 
 int main(void) {

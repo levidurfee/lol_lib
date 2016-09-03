@@ -18,7 +18,7 @@
 #include "lol_misc.h"
 
 #ifndef LOL_NUM_THREADS
-#define LOL_NUM_THREADS 4
+#define LOL_NUM_THREADS 5
 #endif
 
 #ifndef LOL_THREADZ
