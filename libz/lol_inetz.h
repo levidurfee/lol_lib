@@ -16,6 +16,7 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <netdb.h> 
+#include <signal.h>
 
 #ifndef LOL_INETZ
 #define LOL_INETZ
@@ -35,7 +36,7 @@ int lol_server(int portno, fptrOp fptr) {
     int sockfd, newsockfd, pid;
     socklen_t clilen;
     struct sockaddr_in serv_addr, cli_addr;
-
+    signal(SIGCHLD, SIG_IGN);
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
     if(sockfd < 0) {
         error("ERROR opening socket");
