@@ -21,15 +21,17 @@
 #define LOL_INETZ
 
 #define h_addr h_addr_list[0] /* for backward compatibility */
-void dostuff(int); /* function prototype */
 
+// Pointer function
+// Param int sockaddr
+typedef int (*fptrOp)(int);
 
 void error(const char *msg) {
     perror(msg);
     exit(1);
 }
 
-int lol_server(int portno) {
+int lol_server(int portno, fptrOp fptr) {
     int sockfd, newsockfd, pid;
     socklen_t clilen;
     struct sockaddr_in serv_addr, cli_addr;
@@ -61,10 +63,7 @@ int lol_server(int portno) {
         }
         if (pid == 0)  {
             close(sockfd);
-            // need to make this happen another way
-            // so any function can easily be called
-            // i should use a pointer function!
-            dostuff(newsockfd);
+            fptr(newsockfd);
             exit(0);
         }
         else close(newsockfd);
@@ -114,22 +113,6 @@ int lol_client(char *hostname, int portno, char *message) {
     printf("%s\n",buffer);
     close(sockfd);
     return 0;
-}
-
-void dostuff(int sock) {
-   int n;
-   char buffer[256];
-      
-   bzero(buffer,256);
-   n = read(sock,buffer,255);
-   if (n < 0) {
-        error("ERROR reading from socket");
-   }
-   printf("Here is the message: %s\n",buffer);
-   n = write(sock,"I got your message",18);
-   if (n < 0) {
-        error("ERROR writing to socket");
-   }
 }
 
 #endif
