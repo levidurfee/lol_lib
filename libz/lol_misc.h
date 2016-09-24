@@ -12,6 +12,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
+#include <sys/time.h>
 #include "lol_colors.h"
 
 #ifndef LOL_HELPER
@@ -48,22 +49,21 @@ int lol_rand_m(int min, int max, int num, int i_rand[num]) {
 }
 
 /* create a string of random entropy */
-int lol_rand_entropy(int num, char e[num]) {
+int lol_rand_entropy(int num, char *e) {
     int i, rn, len = 0;
-    char tmp[num];
-    for(i=0;i<num;i++) {
-        rn = lol_rand_s(32, 128); // keep it within ascii chars
-        sprintf(tmp, "%c", rn);
-        len += sprintf(e+len, tmp);
+
+    char *buf = malloc(num * sizeof(char));
+    if(!buf) {
+        printf("Bad\n");
+        return -1;
     }
     
-    /*
-    FILE *fp;
-    fp = fopen("entropy.txt", "a");
-    fwrite(e, 1, num, fp);
-    fclose(fp);
-    */
-    //printf("%s\n", e);
+    for(i=0;i<num;i++) {
+        rn = lol_rand_s(32, 128); // keep it within ascii chars
+        sprintf(buf, "%c", rn);
+        len += sprintf(e+len, buf);
+    }
+    free(buf);
     
     return 0;
 }
@@ -78,5 +78,12 @@ void lol_pb_i(char *message, int i) {
 void lol_pb_f(char *message, float i) {
     printf(LOL_BLUE "[" 
     LOL_GREEN "%s:" LOL_RESET "\t%f" LOL_BLUE "]" LOL_RESET "\n", message, i);
+}
+
+long long lol_get_ms_time(void) {
+    struct timeval te; 
+    gettimeofday(&te, NULL);
+    long long milliseconds = te.tv_sec*1000LL + te.tv_usec/1000;
+    return milliseconds;
 }
 #endif

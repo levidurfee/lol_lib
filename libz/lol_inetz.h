@@ -25,7 +25,7 @@
 
 // Pointer function
 // Param int sockaddr
-typedef int (*fptrOp)(int);
+typedef int (*fptrOp)(int, int);
 
 void error(const char *msg) {
     perror(msg);
@@ -64,7 +64,7 @@ int lol_server(int portno, fptrOp fptr) {
         }
         if (pid == 0)  {
             close(sockfd);
-            fptr(newsockfd);
+            fptr(newsockfd, pid);
             exit(0);
         }
         else close(newsockfd);
