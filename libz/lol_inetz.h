@@ -63,6 +63,7 @@ int lol_server(int portno) {
             close(sockfd);
             // need to make this happen another way
             // so any function can easily be called
+            // i should use a pointer function!
             dostuff(newsockfd);
             exit(0);
         }
