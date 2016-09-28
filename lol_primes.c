@@ -28,13 +28,13 @@ int main(int argc, char *argv[]) {
     return 0;
 }
 
-void* hello_world(void *threadid) {
+void *hello_world(void *threadid) {
     int bits;
     long tid;
-    char prime[1024];
+    bits = 512;
+    char prime[bits*2];
     char filename[20];
     FILE *fp;
-    bits = 64;
     lol_primes(prime, bits);
     tid = (long)threadid;
     
