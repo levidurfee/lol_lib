@@ -55,7 +55,7 @@ int lol_threads(lol_threadz_s lts) {
             }
         }
         if(lts.join_threads == 1) {
-            printf("Joining threads\n");
+            //printf("Joining threads\n");
             for(i=0;i<LOL_NUM_THREADS;i++) {
                 pthread_join(threads[i], NULL);
             }
