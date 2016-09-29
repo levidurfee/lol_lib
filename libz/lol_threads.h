@@ -18,7 +18,7 @@
 #include "lol_misc.h"
 
 #ifndef LOL_NUM_THREADS
-#define LOL_NUM_THREADS 5
+#define LOL_NUM_THREADS 2
 #endif
 
 #ifndef LOL_THREADZ
@@ -55,9 +55,9 @@ int lol_threads(lol_threadz_s lts) {
             }
         }
         if(lts.join_threads == 1) {
+            printf("Joining threads\n");
             for(i=0;i<LOL_NUM_THREADS;i++) {
                 pthread_join(threads[i], NULL);
-                //i++;
             }
         }
         cnt++;
@@ -73,7 +73,8 @@ int lol_threads(lol_threadz_s lts) {
                 loops * LOL_NUM_THREADS);
             time(&end_t);
             diff_t = difftime(end_t, start_t) / 60 / 60;
-            tph = (cnt * LOL_NUM_THREADS) / diff_t; // get threads per hour
+            // get threads per hour
+            tph = (cnt * LOL_NUM_THREADS) / diff_t;
             total_time = (double)lts.loops / (double)tph;
             time_left = total_time - diff_t;
             lol_pb_f("Total time", total_time);

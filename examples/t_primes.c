@@ -34,7 +34,7 @@ void* hello_world(void *threadid) {
     char prime[1024];
     char filename[20];
     FILE *fp;
-    bits = 256;
+    bits = 512;
     lol_primes(prime, bits);
     tid = (long)threadid;
     
