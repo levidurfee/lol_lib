@@ -31,10 +31,10 @@ int main(int argc, char *argv[]) {
 void *hello_world(void *threadid) {
     int bits;
     long tid;
-    bits = 512;
-    char prime[bits*2];
+    char prime[512*2];
     char filename[20];
     FILE *fp;
+    bits = 512;
     lol_primes(prime, bits);
     tid = (long)threadid;
     
