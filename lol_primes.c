@@ -32,16 +32,16 @@ void *hello_world(void *threadid) {
     int bits;
     long tid;
     char prime[1024];
-    char filename[20];
+    char filename[] = "56-bits.pri";
     FILE *fp;
-    bits = 512;
+    bits = 56;
     lol_primes(prime, bits);
     tid = (long)threadid;
     
     printf(LOL_CYAN "Hello World! It's me, thread #%02ld!" LOL_GREEN " ["\
                         LOL_RESET "%.50s..." LOL_GREEN "]" LOL_RESET "\n", 
                         tid, prime);
-    sprintf(filename, "%i-bits.pri", bits);
+    
     fp = fopen(filename, "a");
     
     fwrite(prime, 1, strlen(prime), fp);
