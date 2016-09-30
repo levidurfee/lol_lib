@@ -25,7 +25,6 @@ void lol_primes(char *r_string, int bits);
 
 void lol_primes(char *r_string, int bits) {
     BIGNUM *r;
-    BN_init(r);
     srand(time(NULL));
     r = BN_new();
     BN_generate_prime_ex(r, bits, 0, NULL, NULL, NULL);
