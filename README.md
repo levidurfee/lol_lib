@@ -10,6 +10,7 @@ i've been reading books on C that will hopefully help me develop a more solid li
 
 ```bash
 clear;make clean;make;valgrind --track-origins=yes ./lol
+clear;make clean;make;valgrind --suppressions=/home/levi/valgrind.suppressions ./lol
 ```
 
 ### top
