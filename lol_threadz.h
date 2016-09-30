@@ -17,6 +17,7 @@ int lol_threadz_create(lol_threadz lt);
 
 int lol_threadz_create(lol_threadz lt) {
     int er, i;
+    void *status;
     pthread_t tid[lt.num_threads];
     for(i=0;i<lt.num_threads;i++) {
         er = pthread_create(&tid[i], NULL, lt.lfptr, NULL);
@@ -26,6 +27,9 @@ int lol_threadz_create(lol_threadz lt) {
         } else {
             printf("Thread created\n");
         }
+    }
+    for(i=0;i<lt.num_threads;i++) {
+        er = pthread_join(tid[i], &status);
     }
     return 1;
 }
