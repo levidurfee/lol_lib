@@ -20,13 +20,13 @@ int l_rand_entropy(size_t n_chars, char entropy[n_chars]) {
 
     // check and see if calloc was successful
     if(p_buf == 0) {
-    	printf("Error: Out of memory\n");
-    	return -1;
+        printf("Error: Out of memory\n");
+        return -1;
     }
     for(i=0;i<n_chars;i++) {
-        c = l_rand_int(33, 125); 	// ascii chars
-        *p_buf = (char)c; 			// cast the int to char
-        p_buf++;					// increment the pointer
+        c = l_rand_int(33, 125);    // ascii chars
+        *p_buf = (char)c;           // cast the int to char
+        p_buf++;                    // increment the pointer
     }
     // copy the buffer to the char array
     strcpy(entropy, p_buf - i);
