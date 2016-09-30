@@ -5,8 +5,8 @@ int main() {
     int ent = 10;
     char entropy[ent];
     srand(time(NULL)); // feed the machine
-    l_rand_entropy(ent, entropy);
-    printf("Entropy: %s", entropy);
-    printf("\n");
+    if(l_rand_entropy(ent, entropy)) {
+    	printf("Entropy: %s\n", entropy);
+    }
     return 1;
 }
