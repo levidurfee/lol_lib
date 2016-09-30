@@ -1,7 +1,0 @@
-#define LOL_RED     "\x1b[31m"
-#define LOL_GREEN   "\x1b[32m"
-#define LOL_YELLOW  "\x1b[33m"
-#define LOL_BLUE    "\x1b[34m"
-#define LOL_MAGENTA "\x1b[35m"
-#define LOL_CYAN    "\x1b[36m"
-#define LOL_RESET   "\x1b[0m"
