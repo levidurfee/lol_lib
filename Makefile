@@ -1,7 +1,7 @@
-TARGET = primes
+TARGET = lol
 LIBS = -lm
 CC = gcc
-CFLAGS = -O0 -fbuiltin -g -pthread -lcrypto -Wall -std=c11
+CFLAGS = -pthread -lcrypto -Wall -std=c11
 
 .PHONY: default all clean
 

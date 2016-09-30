@@ -1,0 +1,1 @@
+http://www.asciitable.com/index/asciifull.gif
