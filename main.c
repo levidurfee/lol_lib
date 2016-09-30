@@ -35,5 +35,5 @@ int main() {
 
 void *thread_test(void *arg) {
     printf("Thread test function in main\n");
-    return NULL;
+    pthread_exit(NULL);
 }
