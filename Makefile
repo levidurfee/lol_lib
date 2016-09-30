@@ -1,7 +1,7 @@
 TARGET = lol
 LIBS = -lm
 CC = gcc
-CFLAGS = -pthread -lcrypto -Wall -std=c11
+CFLAGS = -g -pthread -lcrypto -Wall -std=c11
 
 .PHONY: default all clean
 
