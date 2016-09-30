@@ -63,8 +63,8 @@ int lol_threads(lol_threadz_s lts) {
         cnt++;
         progress = (cnt * 100) / loops;
         if(lts.output == 1) {
-            lol_clear();
-            lol_gotoxy(0,0);
+            //lol_clear();
+            //lol_gotoxy(0,0);
             printf(LOL_BLUE "[" LOL_GREEN "Percent done:"
             LOL_RESET "\t%i" LOL_BLUE "]"
             LOL_GREEN "[%i / %i]\n", 

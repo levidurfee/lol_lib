@@ -37,9 +37,9 @@ void lol_primes(char *r_string, int bits) {
     RAND_seed(e, sizeof e);
     BN_generate_prime_ex(r, bits, 0, NULL, NULL, NULL);
     sprintf(r_string, "%s", BN_bn2dec(r));
-    printf("Free S: %s.\n", e);
-    free(e);
-    printf("S Freed\n");
+    //printf("Free S: %s.\n", e);
+    //free(e);
+    //printf("S Freed\n");
     BN_clear_free(r);
 }
 

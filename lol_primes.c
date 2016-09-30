@@ -29,12 +29,11 @@ int main(int argc, char *argv[]) {
 }
 
 void *hello_world(void *threadid) {
-    int bits;
+    int bits = 56;
     long tid;
     char prime[1024];
     char filename[] = "56-bits.pri";
     FILE *fp;
-    bits = 56;
     lol_primes(prime, bits);
     tid = (long)threadid;
     
