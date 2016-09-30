@@ -30,16 +30,16 @@ void lol_primes(char *r_string, int bits) {
     if(e == NULL) {
         printf("Malloc messed up\n");
     }
-    printf("e lives at %p.\n", (void*)&e);
-    lol_init_rand();
-    lol_rand_entropy(e_num, e);
+    //printf("e lives at %p.\n", (void*)&e);
+    srand(time(NULL));
     r = BN_new();
     RAND_seed(e, sizeof e);
     BN_generate_prime_ex(r, bits, 0, NULL, NULL, NULL);
     sprintf(r_string, "%s", BN_bn2dec(r));
     //printf("Free S: %s.\n", e);
-    //free(e);
+    free(e);
     //printf("S Freed\n");
+    e = NULL;
     BN_clear_free(r);
 }
 

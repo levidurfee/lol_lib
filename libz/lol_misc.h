@@ -64,6 +64,7 @@ int lol_rand_entropy(int num, char *e) {
         len += sprintf(e+len, buf);
     }
     free(buf);
+    buf = NULL;
     
     return 0;
 }

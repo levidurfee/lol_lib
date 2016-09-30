@@ -31,7 +31,8 @@ int main(int argc, char *argv[]) {
 void *hello_world(void *threadid) {
     int bits = 56;
     long tid;
-    char prime[1024];
+    int prime_s = 512;
+    char *prime = malloc(prime_s * sizeof(char));
     char filename[] = "56-bits.pri";
     FILE *fp;
     lol_primes(prime, bits);
@@ -46,5 +47,7 @@ void *hello_world(void *threadid) {
     fwrite(prime, 1, strlen(prime), fp);
     fwrite("\n", 1, strlen("\n"), fp);
     fclose(fp);
+    free(prime);
+    prime = NULL;
     pthread_exit(NULL);
 }
