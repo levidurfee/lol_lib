@@ -25,21 +25,11 @@ void lol_primes(char *r_string, int bits);
 
 void lol_primes(char *r_string, int bits) {
     BIGNUM *r;
-    int e_num = 512;
-    char *e = (char *)malloc(e_num * sizeof(char));
-    if(e == NULL) {
-        printf("Malloc messed up\n");
-    }
-    //printf("e lives at %p.\n", (void*)&e);
+    BN_init(r);
     srand(time(NULL));
     r = BN_new();
-    RAND_seed(e, sizeof e);
     BN_generate_prime_ex(r, bits, 0, NULL, NULL, NULL);
     sprintf(r_string, "%s", BN_bn2dec(r));
-    //printf("Free S: %s.\n", e);
-    free(e);
-    //printf("S Freed\n");
-    e = NULL;
     BN_clear_free(r);
 }
 
