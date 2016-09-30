@@ -1,3 +1,4 @@
+*.o
 lol
 entropy.txt
 test_files/output.txt
