@@ -18,8 +18,11 @@ int main() {
     la.data = "Hello";
     
     lt.la = &la;
-    
-    lol_threadz_create(lt);
+    int i;
+    for(i=0;i<100;i++) {
+        lol_threadz_create(lt);
+    }
+    pthread_exit(NULL);
     
     /* prime stuff */
     /*

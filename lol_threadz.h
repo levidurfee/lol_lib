@@ -47,7 +47,7 @@ int lol_threadz_create(lol_threadz lt) {
     if(lt.debug == 1) {
         printf("lol_threadz: program completed. Exiting.\n");
     }
-    pthread_exit(NULL);
+    //pthread_exit(NULL);
     return 1;
 }
 #endif
