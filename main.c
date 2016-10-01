@@ -30,6 +30,10 @@ int thread_test(lol_arg *arg) {
         char prime[p_size];
         srand(time(NULL)); // feed the machine
         l_prime(p_size, prime, 0);
+        
+        // get time started and how many have been generated to get
+        // the threads per hour and estimated time left. maybe make
+        // a progress bar.
         printf("thread: %i status: %i out of %i\nprime: %s\n\n", tid, arg->cur, arg->max, prime);
         arg->cur++;
     } else {
