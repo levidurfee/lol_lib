@@ -10,6 +10,7 @@ typedef struct {
     int max;            // max amount of loops?
     int cur;            // current iteration
     char *data;         // data for the function pointer
+    long tid;           // thread id
 } lol_arg;
 
 typedef struct {
@@ -30,6 +31,7 @@ int lol_threadz_create(lol_threadz lt) {
     for(i=0;i<lt.num_threads;i++) {
         // demonstrating ability to change value after it's passed
         lt.la->cur = 2; // this is an example that needs to be removed
+        lt.la->tid = i;
         er = pthread_create(&tid[i], NULL, lt.lfptr, (void*)lt.la);
         if(er != 0) {
             printf("Error creating thread\n");
