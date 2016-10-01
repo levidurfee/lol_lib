@@ -6,23 +6,23 @@ void *thread_test(void *arg);
 
 int main() {
     /* thread stuff */
-    lol_threadz lt;
-    lt.debug = 1;
-    lt.num_threads = 2;
-    lt.join_threads = 1;
-    lt.lfptr = &thread_test;
+    lol_threadz lt;             // thread arguments
+    lt.debug = 0;               // debugging on / off
+    lt.num_threads = 2;         // number of threads - maybe pass as main arg
+    lt.join_threads = 1;        // don't know when this would be 0
+    lt.lfptr = &thread_test;    // function pointer for threads to call
     
-    lol_arg la;
-    la.max = 10;
-    la.cur = 1;
-    la.data = "Hello";
+    lol_arg la;                 // arguments for function pointer
+    la.max = 10;                // example int max
+    la.cur = 1;                 // example int min
+    la.data = "Hello";          // example char array
     
-    lt.la = &la;
-    int i;
+    lt.la = &la;                // add fptr args to threadz args
+    int i;                      // simple int for looping
     for(i=0;i<100;i++) {
-        lol_threadz_create(lt);
+        lol_threadz_create(lt); // create the threads and wait
     }
-    pthread_exit(NULL);
+    pthread_exit(NULL);         // end the threads
     
     /* prime stuff */
     /*
