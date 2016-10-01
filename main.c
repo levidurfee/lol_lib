@@ -43,9 +43,11 @@ int main() {
 
 void *thread_test(void *arg) {
     lol_arg *la = malloc(sizeof(lol_arg));
-    la = arg;
-    printf("Thread test function in main\n");
-    printf("%s\n", la->data);
-    //free(la); // need to free malloc - there is a memleak
+    if(la == NULL) {
+        printf("Error: couldn't allocate lol_arg memory\n");
+    }
+    memcpy(la, arg, sizeof(lol_arg));
+    printf("thread_test: %s\n", la->data);
+    free(la);
     pthread_exit(NULL);
 }
