@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <omp.h>
+#include "lol_types.h"
 #include "lol_primez.h"
-#include "lol_threadz.h"
 
 int thread_test(void *arg);
 
