@@ -7,10 +7,17 @@
 typedef void *lfptr(void *arg);
 
 typedef struct {
+    int max;
+    int cur;
+    char *data;
+} lol_arg;
+
+typedef struct {
     int debug;          // display debugging output
     int num_threads;    // number of threads to use
     int join_threads;   // join threads? normally yes/1
     lfptr *lfptr;       // function pointer
+    lol_arg *la;         // arguments for function ptr
 } lol_threadz;
 
 int lol_threadz_create(lol_threadz lt);
@@ -25,12 +32,21 @@ int lol_threadz_create(lol_threadz lt) {
             printf("Error creating thread\n");
             return -1;
         } else {
-            printf("Thread created\n");
+            if(lt.debug == 1) {
+                printf("Thread created\n");
+            }
         }
     }
     for(i=0;i<lt.num_threads;i++) {
         er = pthread_join(tid[i], &status);
+        if(lt.debug == 1) {
+            printf("Thread joined\n");
+        }
     }
+    if(lt.debug == 1) {
+        printf("lol_threadz: program completed. Exiting.\n");
+    }
+    pthread_exit(NULL);
     return 1;
 }
 #endif

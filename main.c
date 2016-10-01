@@ -11,6 +11,14 @@ int main() {
     lt.num_threads = 2;
     lt.join_threads = 1;
     lt.lfptr = &thread_test;
+    
+    lol_arg la;
+    la.max = 10;
+    la.cur = 1;
+    la.data = "Hello";
+    
+    lt.la = &la;
+    
     lol_threadz_create(lt);
     
     /* prime stuff */
@@ -35,5 +43,6 @@ int main() {
 
 void *thread_test(void *arg) {
     printf("Thread test function in main\n");
+    //printf("%s\n", arg.data);
     pthread_exit(NULL);
 }
