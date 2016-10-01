@@ -3,6 +3,7 @@
 #include <pthread.h>
 #include "lol_threadz.h"
 
+/* lol_arg type functions */
 lol_arg *lol_arg_new(int max, int cur, char *data, int tid) {
     lol_arg *out = malloc(sizeof(lol_arg));
     *out = (lol_arg) {.max = max, .cur = cur, .data = data, .tid = tid};
@@ -17,6 +18,7 @@ lol_arg *lol_arg_copy(lol_arg const *in) {
 
 void lol_arg_free(lol_arg *in) { free(in); }
 
+/* lol_threadz type functions */
 lol_threadz *lol_threadz_new(
         int debug, 
         int num_threads, 
@@ -31,8 +33,15 @@ lol_threadz *lol_threadz_new(
     return out;
 }
 
+lol_threadz *lol_threadz_copy(lol_threadz const *in) {
+    lol_threadz *out = malloc(sizeof(lol_threadz));
+    *out = *in;
+    return out;
+}
+
 void lol_threadz_free(lol_threadz *in) { free(in); }
 
+/* lol_threadz creating function */
 int lol_threadz_create(lol_threadz *lt) {
     int er;
     long i;
