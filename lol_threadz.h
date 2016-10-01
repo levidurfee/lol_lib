@@ -10,7 +10,7 @@ typedef struct {
     int max;            // max amount of loops?
     int cur;            // current iteration
     char *data;         // data for the function pointer
-    long tid;           // thread id
+    int tid;            // thread id
 } lol_arg;
 
 typedef struct {

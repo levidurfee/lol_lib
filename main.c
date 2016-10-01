@@ -19,7 +19,7 @@ int main() {
     
     lt.la = &la;                // add fptr args to threadz args
     int i;                      // simple int for looping
-    for(i=0;i<100;i++) {
+    for(i=0;i<4;i++) {
         lol_threadz_create(lt); // create the threads and wait
     }
     pthread_exit(NULL);         // end the threads
@@ -50,7 +50,12 @@ void *thread_test(void *arg) {
         printf("Error: couldn't allocate lol_arg memory\n");
     }
     memcpy(la, arg, sizeof(lol_arg));
-    printf("%lu thread_test: %s %i\n", la->tid, la->data, la->cur);
+    size_t p_size = 1024;
+    char prime[p_size];
+    srand(time(NULL)); // feed the machine
+    printf("%i thread_test: %s %i\n", la->tid, la->data, la->cur);
+    l_prime(p_size, prime, 0);
+    printf("\t%s\n\n", prime);
     free(la);
     pthread_exit(NULL);
 }
