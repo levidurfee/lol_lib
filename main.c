@@ -9,7 +9,7 @@ void show_progress(int cur, int max, clock_t start);
 
 int main() {
     clock_t start;
-    start = clock();
+    time(&start);
     /* thread args */
     lol_arg *la = lol_arg_new(1000, 1, "Hello", 5);
     int nthreads, tid;
@@ -26,8 +26,8 @@ int main() {
 /* @todo the time is skewed / wrong */
 void show_progress(int cur, int max, clock_t start) {
     clock_t t;
-    t = clock() - start;
-    double time_taken = ((double)t)/CLOCKS_PER_SEC/60/60;
+    time(&t);
+    double time_taken = (double)difftime(t, start) / 60 / 60;
     double per_hour = (double)cur / time_taken;
     double total_time = (double)max / per_hour;
     double time_remaining = total_time - time_taken;
@@ -45,7 +45,7 @@ int thread_test(lol_arg *arg) {
     if(test == 0) {
         int tid;
         tid = omp_get_thread_num();
-        size_t p_size = 128;
+        size_t p_size = 1024;
         char prime[p_size];
         srand(time(NULL)); // feed the machine
         l_prime(p_size, prime, 0);
