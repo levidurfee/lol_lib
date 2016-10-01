@@ -50,7 +50,7 @@ void *thread_test(void *arg) {
         printf("Error: couldn't allocate lol_arg memory\n");
     }
     memcpy(la, arg, sizeof(lol_arg));
-    printf("thread_test: %s\n", la->data);
+    printf("thread_test: %s %i\n", la->data, la->cur);
     free(la);
     pthread_exit(NULL);
 }

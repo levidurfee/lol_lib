@@ -50,11 +50,16 @@ int l_prime(size_t bits, char *prime, int safe) {
     l_rand_entropy(bits, seed);
     RAND_seed(seed, sizeof seed);
 
+    // initialize the new big number
     p = BN_new();
+    
+    // generate the prime
     BN_generate_prime_ex(p, bits, 0, NULL, NULL, NULL);
 
+    // copy the big number to a char pointer
     sprintf(prime, "%s", BN_bn2dec(p));
 
+    // free the memory used by the big number
     BN_free(p);
 
     // YAY
