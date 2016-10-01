@@ -54,7 +54,10 @@ int l_prime(size_t bits, char *prime, int safe) {
     p = BN_new();
     
     // generate the prime
-    BN_generate_prime_ex(p, bits, 0, NULL, NULL, NULL);
+    if(BN_generate_prime_ex(p, bits, 0, NULL, NULL, NULL) != 1) {
+        printf("Error generating prime\n");
+        return -1;
+    }
 
     // copy the big number to a char pointer
     sprintf(prime, "%s", BN_bn2dec(p));
