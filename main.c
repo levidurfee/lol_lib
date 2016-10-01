@@ -8,8 +8,8 @@ int thread_test(void *arg);
 int main() {
     /* thread args */
     lol_arg *la = lol_arg_new(10, 1, "Hello", 5);
-    
-    #pragma omp parallel for
+    int nthreads, tid;
+    #pragma omp parallel for private(nthreads, tid)
     for(int i=0;i<4;i++) {
         thread_test(la);
         //lol_threadz_create(lt); // create the threads and wait
@@ -32,12 +32,13 @@ int thread_test(void *arg) {
     // you'll see a lot of extra info
     int test = 0;
     if(test == 0) {
-        size_t p_size = 1024;
+        int tid;
+        tid = omp_get_thread_num();
+        size_t p_size = 2048;
         char prime[p_size];
         srand(time(NULL)); // feed the machine
-        printf("%i thread_test: %s %i\n", la->tid, la->data, la->cur);
         l_prime(p_size, prime, 0);
-        printf("\t%s\n\n", prime);
+        printf("thread: %i prime: %s\n\n", tid, prime);
     } else {
         printf("Debugging\n");
     }
