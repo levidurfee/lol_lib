@@ -23,11 +23,12 @@ typedef struct {
 int lol_threadz_create(lol_threadz lt);
 
 int lol_threadz_create(lol_threadz lt) {
-    int er, i;
+    int er;
+    long i;
     void *status;
     pthread_t tid[lt.num_threads];
     for(i=0;i<lt.num_threads;i++) {
-        er = pthread_create(&tid[i], NULL, lt.lfptr, NULL);
+        er = pthread_create(&tid[i], NULL, lt.lfptr, (void*)lt.la);
         if(er != 0) {
             printf("Error creating thread\n");
             return -1;

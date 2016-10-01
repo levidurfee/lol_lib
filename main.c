@@ -42,7 +42,9 @@ int main() {
 }
 
 void *thread_test(void *arg) {
+    lol_arg *la = malloc(sizeof(lol_arg));
+    la = arg;
     printf("Thread test function in main\n");
-    //printf("%s\n", arg.data);
+    printf("%s\n", la->data);
     pthread_exit(NULL);
 }
