@@ -23,6 +23,7 @@ int main() {
     return 1;
 }
 
+/* @todo the time is skewed / wrong */
 void show_progress(int cur, int max, clock_t start) {
     clock_t t;
     t = clock() - start;
