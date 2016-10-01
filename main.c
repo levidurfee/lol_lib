@@ -46,5 +46,6 @@ void *thread_test(void *arg) {
     la = arg;
     printf("Thread test function in main\n");
     printf("%s\n", la->data);
+    //free(la); // need to free malloc - there is a memleak
     pthread_exit(NULL);
 }
