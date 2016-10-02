@@ -5,13 +5,21 @@
 #include "lol_primez.h"
 
 int thread_test(lol_arg *arg);
-void show_progress(int cur, int max, clock_t start);
+void show_progress(size_t cur, size_t max, clock_t start);
 
-int main() {
+int main(int argc, char *argv[]) {
+    if(argc == 1) {
+        printf("Err. Usage:\n%s num_of_primes bits\n", argv[0]);
+        return -1;
+    }
+    
+    size_t max = atoi(argv[1]);
+    size_t bit = atoi(argv[2]);
+    
     clock_t start;
     time(&start);
     /* thread args */
-    lol_arg *la = lol_arg_new(1000, 1, "Hello", 5);
+    lol_arg *la = lol_arg_new(max, 1, "Hello", 5, bit);
     int nthreads, tid;
     #pragma omp parallel for private(nthreads, tid)
     for(int i=0;i<la->max;i++) {
@@ -24,7 +32,7 @@ int main() {
 }
 
 /* @todo the time is skewed / wrong */
-void show_progress(int cur, int max, clock_t start) {
+void show_progress(size_t cur, size_t max, clock_t start) {
     clock_t t;
     time(&t);
     double time_taken = (double)difftime(t, start) / 60 / 60;
@@ -47,7 +55,7 @@ int thread_test(lol_arg *arg) {
     if(test == 0) {
         int tid;
         tid = omp_get_thread_num();
-        size_t p_size = 1024;
+        size_t p_size = arg->bit;
         char prime[p_size];
         srand(time(NULL)); // feed the machine
         l_prime(p_size, prime, 0);
