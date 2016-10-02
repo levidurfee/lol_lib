@@ -31,10 +31,12 @@ void show_progress(int cur, int max, clock_t start) {
     double per_hour = (double)cur / time_taken;
     double total_time = (double)max / per_hour;
     double time_remaining = total_time - time_taken;
+    double percent_done = ((double)cur * 100) / max;
     printf("Time elapsed:       %f\n", time_taken);
     printf("Per hour:           %f\n", per_hour);
     printf("Total time needed:  %f\n", total_time);
     printf("Time remaining:     %f\n", time_remaining);
+    printf("Percent done:       %f\n", percent_done);
 }
 
 int thread_test(lol_arg *arg) {
