@@ -7,8 +7,8 @@
 
 #define lol_clear() printf("\033[H\033[J")
 
-int thread_test(lol_arg *arg);
-void show_progress(size_t cur, size_t max, clock_t start, char *data);
+int thread_test(lol_arg *arg, char *data);
+void show_progress(size_t cur, size_t max, clock_t start, char *pp);
 
 int main(int argc, char *argv[]) {
     if(argc == 1) {
@@ -22,20 +22,24 @@ int main(int argc, char *argv[]) {
     clock_t start;
     time(&start);
     /* thread args */
-    lol_arg *la = lol_arg_new(max, 1, "Hello", 5, bit);
+    char *pp = malloc(sizeof(char*) * bit);
+    
+    lol_arg *la = lol_arg_new(max, 1, 1, bit);
     int nthreads, tid;
     #pragma omp parallel for private(nthreads, tid)
     for(int i=0;i<la->max;i++) {
-        thread_test(la);
-        show_progress(la->cur, la->max, start, la->data);
+        thread_test(la, pp);
+        show_progress(la->cur, la->max, start, pp);
+        //printf("%s\n", pp);
     }
+    free(pp);
     lol_arg_free(la);           // free the malloc
     
     return 1;
 }
 
 /* @todo the time is skewed / wrong */
-void show_progress(size_t cur, size_t max, clock_t start, char *data) {
+void show_progress(size_t cur, size_t max, clock_t start, char *pp) {
     clock_t t;
     time(&t);
     double time_taken = (double)difftime(t, start) / 60 / 60;
@@ -50,10 +54,10 @@ void show_progress(size_t cur, size_t max, clock_t start, char *data) {
     printf("Time remaining:     %f\n", time_remaining);
     printf("Percent done:       %f\n", percent_done);
     printf("                    %zu/%zu\n", cur, max);
-    printf("Data:               %i\n", data);
+    printf("Data:               %s\n", pp);
 }
 
-int thread_test(lol_arg *arg) {
+int thread_test(lol_arg *arg, char *data) {
     // libcrypto has lots of memory leaks
     // make test = 1 if debugging. otherwise
     // you'll see a lot of extra info
@@ -65,11 +69,13 @@ int thread_test(lol_arg *arg) {
         char prime[p_size];
         srand(time(NULL)); // feed the machine
         l_prime(p_size, prime, 0);
-        arg->data = prime;
+        //data = prime;
+        sprintf(data, "tid: %i prime: %s", tid, prime);
+        //strcpy(data, prime);
         // get time started and how many have been generated to get
         // the threads per hour and estimated time left. maybe make
         // a progress bar.
-        printf("thread: %i\nprime: %s\n\n", tid, prime);
+        //printf("thread: %i\nprime: %s\n\n", tid, prime);
         arg->cur++;
         
         FILE *fp;
