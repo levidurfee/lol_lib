@@ -1,11 +1,14 @@
 #include <stdio.h>
 #include <time.h>
 #include <omp.h>
+#include <string.h>
 #include "lol_types.h"
 #include "lol_primez.h"
 
+#define lol_clear() printf("\033[H\033[J")
+
 int thread_test(lol_arg *arg);
-void show_progress(size_t cur, size_t max, clock_t start);
+void show_progress(size_t cur, size_t max, clock_t start, char *data);
 
 int main(int argc, char *argv[]) {
     if(argc == 1) {
@@ -24,7 +27,7 @@ int main(int argc, char *argv[]) {
     #pragma omp parallel for private(nthreads, tid)
     for(int i=0;i<la->max;i++) {
         thread_test(la);
-        show_progress(la->cur, la->max, start);
+        show_progress(la->cur, la->max, start, la->data);
     }
     lol_arg_free(la);           // free the malloc
     
@@ -32,7 +35,7 @@ int main(int argc, char *argv[]) {
 }
 
 /* @todo the time is skewed / wrong */
-void show_progress(size_t cur, size_t max, clock_t start) {
+void show_progress(size_t cur, size_t max, clock_t start, char *data) {
     clock_t t;
     time(&t);
     double time_taken = (double)difftime(t, start) / 60 / 60;
@@ -40,11 +43,14 @@ void show_progress(size_t cur, size_t max, clock_t start) {
     double total_time = (double)max / per_hour;
     double time_remaining = total_time - time_taken;
     double percent_done = ((double)cur * 100) / max;
+    lol_clear();
     printf("Time elapsed:       %f\n", time_taken);
     printf("Per hour:           %f\n", per_hour);
     printf("Total time needed:  %f\n", total_time);
     printf("Time remaining:     %f\n", time_remaining);
     printf("Percent done:       %f\n", percent_done);
+    printf("                    %zu/%zu\n", cur, max);
+    printf("Data:               %i\n", data);
 }
 
 int thread_test(lol_arg *arg) {
@@ -59,7 +65,7 @@ int thread_test(lol_arg *arg) {
         char prime[p_size];
         srand(time(NULL)); // feed the machine
         l_prime(p_size, prime, 0);
-        
+        arg->data = prime;
         // get time started and how many have been generated to get
         // the threads per hour and estimated time left. maybe make
         // a progress bar.
