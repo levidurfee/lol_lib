@@ -30,7 +30,6 @@ int main(int argc, char *argv[]) {
     for(int i=0;i<la->max;i++) {
         thread_test(la, pp);
         show_progress(la->cur, la->max, start, pp);
-        //printf("%s\n", pp);
     }
     free(pp);
     lol_arg_free(la);           // free the malloc
@@ -38,7 +37,6 @@ int main(int argc, char *argv[]) {
     return 1;
 }
 
-/* @todo the time is skewed / wrong */
 void show_progress(size_t cur, size_t max, clock_t start, char *pp) {
     clock_t t;
     time(&t);
@@ -67,17 +65,12 @@ int thread_test(lol_arg *arg, char *data) {
         tid = omp_get_thread_num();
         size_t p_size = arg->bit;
         char prime[p_size];
-        srand(time(NULL)); // feed the machine
+        srand(time(NULL));              // feed the machine
         l_prime(p_size, prime, 0);
-        //data = prime;
         sprintf(data, "tid: %i prime: %s", tid, prime);
-        //strcpy(data, prime);
-        // get time started and how many have been generated to get
-        // the threads per hour and estimated time left. maybe make
-        // a progress bar.
-        //printf("thread: %i\nprime: %s\n\n", tid, prime);
-        arg->cur++;
+        arg->cur++;                     // increment the pointer
         
+        // Write the prime to the file.
         FILE *fp;
         fp = fopen("output.pri", "a");
         fprintf(fp, "%s\n", prime);
