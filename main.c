@@ -9,6 +9,7 @@
 
 int thread_test(lol_arg *arg, char *data);
 void show_progress(size_t cur, size_t max, clock_t start, char *pp);
+void do_nothing(int i);
 
 int main(int argc, char *argv[]) {
     if(argc == 1) {
@@ -16,23 +17,30 @@ int main(int argc, char *argv[]) {
         return -1;
     }
     
-    size_t max = atoi(argv[1]);
-    size_t bit = atoi(argv[2]);
+    size_t max = atoi(argv[1]);             // number of primes
+    size_t bit = atoi(argv[2]);             // number of bits
     
-    clock_t start;
-    time(&start);
+    clock_t start;                          // start time var
+    time(&start);                           // start time
+    
     /* thread args */
-    char *pp = malloc(sizeof(char*) * bit);
+    char *pp = malloc(sizeof(char*) * bit); // allocate space for char ptr
     
     lol_arg *la = lol_arg_new(max, 1, 1, bit);
-    int nthreads, tid;
+    
+    int nthreads, tid;                      // declare omp args
+    nthreads = tid = 0;                     // initialize omp args
+    
     #pragma omp parallel for private(nthreads, tid)
     for(int i=0;i<la->max;i++) {
         thread_test(la, pp);
         show_progress(la->cur, la->max, start, pp);
     }
     free(pp);
-    lol_arg_free(la);           // free the malloc
+    lol_arg_free(la);                       // free the malloc
+    
+    do_nothing(nthreads);                   // do nothing with them
+    do_nothing(tid);                        // so there isn't a warning
     
     return 1;
 }
@@ -79,4 +87,8 @@ int thread_test(lol_arg *arg, char *data) {
         printf("Debugging\n");
     }
     return 1;
+}
+
+void do_nothing(int i) {
+    // do nothing
 }
