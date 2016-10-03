@@ -46,9 +46,9 @@ int main(int argc, char *argv[]) {
 }
 
 void show_progress(size_t cur, size_t max, clock_t start, char *pp) {
-    clock_t t;
-    time(&t);
-    double time_taken = (double)difftime(t, start) / 60 / 60;
+    clock_t stop;
+    time(&stop);
+    double time_taken = (double)difftime(stop, start) / 60 / 60;
     double per_hour = (double)cur / time_taken;
     double total_time = (double)max / per_hour;
     double time_remaining = total_time - time_taken;
@@ -69,16 +69,18 @@ int thread_test(lol_arg *arg, char *data) {
     // you'll see a lot of extra info
     int test = 0;
     if(test == 0) {
-        int tid;
-        tid = omp_get_thread_num();
-        size_t p_size = arg->bit;
-        char prime[p_size];
+        int tid;                        // int for thread id
+        tid = omp_get_thread_num();     // get thread id from omp
+        size_t p_size = arg->bit;       // prime bits
+        char prime[p_size];             // char array to hold prime
         srand(time(NULL));              // feed the machine
-        l_prime(p_size, prime, 0);
+        l_prime(p_size, prime, 0);      // bits, prime ptr, safe prime
+        
+        /* copy the tid & prime to the pointer */
         sprintf(data, "tid: %i prime: %s", tid, prime);
         arg->cur++;                     // increment the pointer
         
-        // Write the prime to the file.
+        /* Write the prime to the file */
         FILE *fp;
         fp = fopen("output.pri", "a");
         fprintf(fp, "%s\n", prime);
