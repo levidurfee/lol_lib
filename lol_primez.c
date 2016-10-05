@@ -1,3 +1,5 @@
+#include <string.h>
+#include <stdlib.h>
 #include <openssl/bn.h>
 #include <openssl/rand.h>
 #include <time.h>
