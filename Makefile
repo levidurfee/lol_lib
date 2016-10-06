@@ -1,7 +1,7 @@
 TARGET = lol
 LIBS = -lm -fopenmp -latomic
 CC = gcc
-CFLAGS = -g -fopenmp -pthread -lcrypto -Wall -std=c11
+CFLAGS = -g -O3 -fopenmp -pthread -lcrypto -Wall -std=c11
 
 .PHONY: default all clean
 

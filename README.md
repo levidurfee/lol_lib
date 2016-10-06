@@ -41,6 +41,7 @@ top -b -n 1 |grep lol
 
 ## useful links
 
+* http://www.thegeekstuff.com/2011/12/c-socket-programming/
 * https://computing.llnl.gov/tutorials/pthreads/
 * http://www.asciitable.com/index/asciifull.gif
 * http://stackoverflow.com/questions/2426277/how-free-works-when-pointer-is-incremented

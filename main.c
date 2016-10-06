@@ -20,6 +20,7 @@ void show_options(void);
 int main(int argc, char *argv[]) {
     
     int c, mode;
+    mode = 0;
     
     while ((c = getopt(argc, argv, "p:s:c:")) != -1) {
         switch (c) {
@@ -32,6 +33,17 @@ int main(int argc, char *argv[]) {
         }
     }
     
+    /* do client stuff */
+    if(mode == 3) {
+        printf("Client\n");
+    }
+    
+    /* do server stuff */
+    if(mode == 2) {
+        
+    }
+    
+    /* do prime stuff */
     if(mode == 1) {
     
         size_t max = atoi(argv[2]);             // number of primes
