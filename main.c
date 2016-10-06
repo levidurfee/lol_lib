@@ -1,47 +1,65 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
 #include <omp.h>
+#include <time.h>
+#include <stdio.h>
+#include <ctype.h>
 #include <string.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <getopt.h>
 #include "lol_types.h"
 #include "lol_primez.h"
+#include "lol_netz.h"
 
 #define lol_clear() printf("\033[H\033[J")
 
 int thread_test(lol_arg *arg, char *data);
 void show_progress(size_t cur, size_t max, clock_t start, char *pp);
 void do_nothing(int i);
+void show_options(void);
 
 int main(int argc, char *argv[]) {
-    if(argc == 1) {
-        printf("Err. Usage:\n%s num_of_primes bits\n", argv[0]);
-        return -1;
+    
+    int c, mode;
+    
+    while ((c = getopt(argc, argv, "p:s:c:")) != -1) {
+        switch (c) {
+            case 'p': mode = 1; break;
+            case 's': mode = 2; break;
+            case 'c': mode = 3; break;
+            default:
+                show_options();
+                return -1;
+        }
     }
     
-    size_t max = atoi(argv[1]);             // number of primes
-    size_t bit = atoi(argv[2]);             // number of bits
+    if(mode == 1) {
     
-    clock_t start;                          // start time var
-    time(&start);                           // start time
-    
-    /* thread args */
-    char *pp = malloc(sizeof(char*) * bit); // allocate space for char ptr
-    
-    lol_arg *la = lol_arg_new(max, 1, 1, bit);
-    
-    int nthreads, tid;                      // declare omp args
-    nthreads = tid = 0;                     // initialize omp args
-    
-    #pragma omp parallel for private(nthreads, tid)
-    for(int i=0;i<la->max;i++) {
-        thread_test(la, pp);
-        show_progress(la->cur, la->max, start, pp);
+        size_t max = atoi(argv[2]);             // number of primes
+        size_t bit = atoi(argv[3]);             // number of bits
+        
+        clock_t start;                          // start time var
+        time(&start);                           // start time
+        
+        /* thread args */
+        char *pp = malloc(sizeof(char*) * bit); // allocate space for char ptr
+        
+        lol_arg *la = lol_arg_new(max, 1, 1, bit);
+        
+        int nthreads, tid;                      // declare omp args
+        nthreads = tid = 0;                     // initialize omp args
+        
+        #pragma omp parallel for private(nthreads, tid)
+        for(int i=0;i<la->max;i++) {
+            thread_test(la, pp);
+            show_progress(la->cur, la->max, start, pp);
+        }
+        
+        free(pp);
+        lol_arg_free(la);                       // free the malloc
+        
+        do_nothing(nthreads);                   // do nothing with them
+        do_nothing(tid);                        // so there isn't a warning
     }
-    free(pp);
-    lol_arg_free(la);                       // free the malloc
-    
-    do_nothing(nthreads);                   // do nothing with them
-    do_nothing(tid);                        // so there isn't a warning
     
     return 1;
 }
@@ -94,4 +112,10 @@ int thread_test(lol_arg *arg, char *data) {
 
 void do_nothing(int i) {
     // do nothing
+}
+
+void show_options(void) {
+    printf("Err. Usage:\n./lol -p num_of_primes bits\n");
+    printf("./lol -s ip port\n");
+    printf("./lol -c ip port\n");
 }
