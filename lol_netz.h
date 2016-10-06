@@ -10,6 +10,7 @@ typedef struct {
 
 int lol_client(lol_netz ln);
 
+int lol_netz_create(int sockfd, int n);
 lol_netz *lol_netz_new(lol_netz ln);
 lol_netz *lol_netz_copy(lol_netz const *ln);
 void lol_netz_free(lol_netz *in);
