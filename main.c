@@ -9,6 +9,7 @@
 #include "lol_types.h"
 #include "lol_primez.h"
 #include "lol_netz.h"
+#include "lol_sqlite.h"
 
 #define lol_clear() printf("\033[H\033[J")
 
@@ -22,15 +23,24 @@ int main(int argc, char *argv[]) {
     int c, mode;
     mode = 0;
     
-    while ((c = getopt(argc, argv, "p:s:c:")) != -1) {
+    while ((c = getopt(argc, argv, "p:s:c:d")) != -1) {
         switch (c) {
             case 'p': mode = 1; break;
             case 's': mode = 2; break;
             case 'c': mode = 3; break;
+            case 'd': mode = 4; break;
             default:
                 show_options();
                 return -1;
         }
+    }
+    
+    /* sqlite stuff */
+    if(mode == 4) {
+        lol_sl lsl;
+        lsl.id = 1;
+        lsl.prime = "156";
+        lol_sl_add("test_table", "test.db", lsl);
     }
     
     /* do client stuff */

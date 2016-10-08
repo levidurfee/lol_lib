@@ -1,3 +1,4 @@
+*.db
 *.o
 lol
 entropy.txt
