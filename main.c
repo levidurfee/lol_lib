@@ -40,7 +40,9 @@ int main(int argc, char *argv[]) {
         lol_sl lsl;
         lsl.id = 1;
         lsl.prime = "156";
-        lol_sl_add("test_table", "test.db", lsl);
+        if(lol_sl_add("test_table", "test.db", lsl)) {
+            printf("Added row\n");
+        }
     }
     
     /* do client stuff */

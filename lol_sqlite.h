@@ -11,4 +11,6 @@ int lol_sl_del(char *table, char *dbname, int id);
 
 int lol_sl_get_total(char *table, char *dbname);
 
+int lol_sl_create(char *table, sqlite3 *db);
+
 int lol_sl_open(char *dbname, sqlite3 *db);
