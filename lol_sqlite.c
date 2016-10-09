@@ -32,6 +32,26 @@ int lol_sl_add(char *table, char *dbname, lol_sl lol_sl) {
 }
 
 int lol_sl_get(char *table, char *dbname, int id) {
+    int rc;
+    sqlite3 *db;
+    db = '\0';
+    char *zErrMsg = 0;
+    
+    //lol_sl_open(dbname, db);
+    rc = sqlite3_open(dbname, &db);
+    
+    char sql[2048];
+    sprintf(sql, "SELECT * FROM %s;", 
+        table);
+        
+    rc = sqlite3_exec(db, sql, callback, 0, &zErrMsg);
+    
+    if( rc != SQLITE_OK ) {
+        fprintf(stderr, "SQL error: %s\n", zErrMsg);
+        sqlite3_free(zErrMsg);
+    }
+    sqlite3_close(db);
+    
     return 1;
 }
 
@@ -82,4 +102,13 @@ int lol_sl_open(char *dbname, sqlite3 *db) {
         fprintf(stdout, "Table opened\n");
     }
     return 1;
+}
+
+int callback(void *NotUsed, int argc, char **argv, char **azColName) {
+    int i;
+    for(i=0; i<argc; i++) {
+        printf("%s = %s\n", azColName[i], argv[i] ? argv[i] : "NULL");
+    }
+    
+    return 0; // needs to return 0
 }

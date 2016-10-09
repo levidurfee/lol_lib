@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <sqlite3.h>
 
 typedef struct {
@@ -14,3 +15,5 @@ int lol_sl_get_total(char *table, char *dbname);
 int lol_sl_create(char *table, sqlite3 *db);
 
 int lol_sl_open(char *dbname, sqlite3 *db);
+
+int callback(void *NotUsed, int argc, char **argv, char **azColName);
