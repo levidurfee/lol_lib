@@ -14,6 +14,7 @@ int lol_sl_add(char *table, char *dbname, lol_sl lol_sl) {
     lol_sl_create(table, db);
     
     char sql[2048];
+    /* insert a new row into the table */
     sprintf(sql, "INSERT INTO %s (prime) VALUES ('%s');", 
         table, lol_sl.prime);
     
@@ -41,6 +42,7 @@ int lol_sl_get(char *table, char *dbname, int id) {
     rc = sqlite3_open(dbname, &db);
     
     char sql[2048];
+    /* get a single row by it's id */
     sprintf(sql, "SELECT * FROM %s WHERE id = %i;", 
         table, id);
         
@@ -65,6 +67,7 @@ int lol_sl_del(char *table, char *dbname, char *op, int id) {
     rc = sqlite3_open(dbname, &db);
     
     char sql[2048];
+    /* delete rows where operator id */
     sprintf(sql, "DELETE FROM %s WHERE id %s %i;", 
         table, op, id);
         
@@ -89,6 +92,7 @@ int lol_sl_get_all(char *table, char *dbname) {
     rc = sqlite3_open(dbname, &db);
     
     char sql[2048];
+    /* get all the rows from the table */
     sprintf(sql, "SELECT * FROM %s;", 
         table);
         

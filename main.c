@@ -43,9 +43,10 @@ int main(int argc, char *argv[]) {
         if(lol_sl_add("test_table", "dbs/test.db", lsl)) {
             printf("Added row\n");
         }
-        lol_sl_get_all("test_table", "dbs/test.db");
-        lol_sl_get("test_table", "dbs/test.db", 1);
-        lol_sl_del("test_table", "dbs/test.db", ">", 2);
+        /* each of these functions return 1 on success */
+        lol_sl_get_all("test_table", "dbs/test.db");        // get all records
+        lol_sl_get("test_table", "dbs/test.db", 1);         // get one record
+        lol_sl_del("test_table", "dbs/test.db", ">", 2);    // del all > 2
     }
     
     /* do client stuff */
