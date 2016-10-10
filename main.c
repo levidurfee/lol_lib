@@ -43,7 +43,9 @@ int main(int argc, char *argv[]) {
         if(lol_sl_add("test_table", "test.db", lsl)) {
             printf("Added row\n");
         }
-        lol_sl_get("test_table", "test.db", 0);
+        lol_sl_get_all("test_table", "test.db");
+        lol_sl_get("test_table", "test.db", 1);
+        lol_sl_del("test_table", "test.db", ">", 2);
     }
     
     /* do client stuff */

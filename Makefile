@@ -1,7 +1,7 @@
 TARGET = lol
 LIBS = -lm -fopenmp -latomic
 CC = gcc
-CFLAGS = -g -O3 -fopenmp -pthread -lcrypto -Wall -std=c11 -lsqlite3
+CFLAGS = -O3 -fopenmp -pthread -lcrypto -Wall -std=c11 -lsqlite3
 
 .PHONY: default all clean
 
