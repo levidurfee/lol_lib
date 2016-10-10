@@ -6,10 +6,10 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <getopt.h>
-#include "lol_types.h"
-#include "lol_primez.h"
-#include "lol_netz.h"
-#include "lol_sqlite.h"
+#include "inc/lol_types.h"
+#include "inc/lol_primez.h"
+#include "inc/lol_netz.h"
+#include "inc/lol_sqlite.h"
 
 #define lol_clear() printf("\033[H\033[J")
 
@@ -40,12 +40,12 @@ int main(int argc, char *argv[]) {
         lol_sl lsl;
         lsl.id = 1;
         lsl.prime = "156";
-        if(lol_sl_add("test_table", "test.db", lsl)) {
+        if(lol_sl_add("test_table", "dbs/test.db", lsl)) {
             printf("Added row\n");
         }
-        lol_sl_get_all("test_table", "test.db");
-        lol_sl_get("test_table", "test.db", 1);
-        lol_sl_del("test_table", "test.db", ">", 2);
+        lol_sl_get_all("test_table", "dbs/test.db");
+        lol_sl_get("test_table", "dbs/test.db", 1);
+        lol_sl_del("test_table", "dbs/test.db", ">", 2);
     }
     
     /* do client stuff */
