@@ -23,16 +23,40 @@ int main(int argc, char *argv[]) {
     int c, mode;
     mode = 0;
     
-    while ((c = getopt(argc, argv, "p:s:c:d")) != -1) {
+    while ((c = getopt(argc, argv, "p:s:c:db")) != -1) {
         switch (c) {
             case 'p': mode = 1; break;
             case 's': mode = 2; break;
             case 'c': mode = 3; break;
             case 'd': mode = 4; break;
+            case 'b': mode = 5; break;
             default:
                 show_options();
                 return -1;
         }
+    }
+    
+    /* binary tree stuff */
+    if(mode == 5) {
+        node *root;
+        root = NULL;
+        
+        insert(&root, 5);
+        insert(&root, 3);
+        insert(&root, 8);
+        insert(&root, 4);
+        
+        /* Printing nodes of tree */
+        printf("Pre Order Display\n");
+        print_preorder(root);
+
+        printf("In Order Display\n");
+        print_inorder(root);
+
+        printf("Post Order Display\n");
+        print_postorder(root);
+        
+        deltree(root);
     }
     
     /* sqlite stuff */
