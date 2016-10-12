@@ -37,7 +37,7 @@ void insert(node **tree, int val) {
 
 void print_preorder(node *tree) {
     if(tree) {
-        printf("%d\n",tree->data);
+        printf("%d\n", tree->data);
         print_preorder(tree->left);
         print_preorder(tree->right);
     }
@@ -46,7 +46,7 @@ void print_preorder(node *tree) {
 void print_inorder(node *tree) {
     if(tree) {
         print_inorder(tree->left);
-        printf("%d\n",tree->data);
+        printf("%d\n", tree->data);
         print_inorder(tree->right);
     }
 }
@@ -55,7 +55,7 @@ void print_postorder(node *tree) {
     if(tree) {
         print_postorder(tree->left);
         print_postorder(tree->right);
-        printf("%d\n",tree->data);
+        printf("%d\n", tree->data);
     }
 }
 
