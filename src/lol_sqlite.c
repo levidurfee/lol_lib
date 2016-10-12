@@ -32,7 +32,7 @@ int lol_sl_add(char *table, char *dbname, lol_sl lol_sl) {
     return 1;
 }
 
-int lol_sl_get(char *table, char *dbname, int id) {
+int lol_sl_get(char *table, char *dbname, char *op, int id) {
     int rc;
     sqlite3 *db;
     db = '\0';

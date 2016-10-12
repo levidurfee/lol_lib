@@ -7,7 +7,7 @@ typedef struct {
 } lol_sl;
 
 int lol_sl_add(char *table, char *dbname, lol_sl lol_sl);
-int lol_sl_get(char *table, char *dbname, int id);
+int lol_sl_get(char *table, char *dbname, char *op, int id);
 int lol_sl_del(char *table, char *dbname, char *op, int id);
 
 int lol_sl_get_all(char *table, char *dbname);
