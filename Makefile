@@ -1,51 +1,24 @@
-APP = lol
-
-OBJDIR = obj
-
-SRCS := $(shell find . -name '*.c')
-SRCDIRS := $(shell find . -name '*.c' -exec dirname {} \; | uniq)
-OBJS := $(patsubst %.c,$(OBJDIR)/%.o,$(SRCS))
-DEPS := $(patsubst %.c,$(OBJDIR)/%.d,$(SRCS))
-
-DEBUG = -g
-INCLUDES = -I./inc
-CFLAGS = $(DEBUG) -Wall -pedantic $(INCLUDES) -c -fopenmp
-LDFLAGS = -O3 -fopenmp -pthread -lcrypto -Wall -std=c11 -lsqlite3
+TARGET = lol
 LIBS = -lm -fopenmp -latomic
+CC = gcc
+CFLAGS = -O3 -fopenmp -pthread -lcrypto -Wall -std=c11 -lsqlite3
 
-DEPENDS = -MT $@ -MD -MP -MF $(subst .o,.d,$@)
+.PHONY: default all clean
 
-SHELL = /bin/bash
+default: $(TARGET)
+all: default
 
-.PHONY: all clean distclean
+OBJECTS = $(patsubst %.c, %.o, $(wildcard *.c))
+HEADERS = $(wildcard *.h)
 
+%.o: %.c $(HEADERS)
+	$(CC) $(CFLAGS) -c $< -o $@
 
-all: buildrepo $(APP)
+.PRECIOUS: $(TARGET) $(OBJECTS)
 
-$(APP): $(OBJS)
-	$(CC) $(LDFLAGS) $^ $(LIBS) -o $@
-
-$(OBJDIR)/%.o: %.c
-	$(CC) $(CFLAGS) $(DEPENDS) $< -o $@
+$(TARGET): $(OBJECTS)
+	$(CC) $(OBJECTS) $(CFLAGS) $(LIBS) -o $@
 
 clean:
-	$(RM) -r $(OBJDIR)
-
-distclean: clean
-	$(RM) $(APP)
-
-buildrepo:
-	@$(call make-repo)
-
-define make-repo
-for dir in $(SRCDIRS); \
-do \
-mkdir -p $(OBJDIR)/$$dir; \
-done
-endef
-
-ifneq "$(MAKECMDGOALS)" "distclean"
-ifneq "$(MAKECMDGOALS)" "clean"
--include $(DEPS)
-endif
-endif
+	-rm -f *.o
+	-rm -f $(TARGET)
