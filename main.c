@@ -42,6 +42,8 @@ int main(int argc, char *argv[]) {
     if(mode == 6) {
         char *output = lol_md5(argv[2], strlen(argv[2]));
         printf("%s\n", output);
+        output = lol_sha(argv[2], strlen(argv[2]));
+        printf("%s\n", output);
         free(output);
     }
     

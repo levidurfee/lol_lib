@@ -32,7 +32,20 @@ char *lol_md5(const char *str, int length) {
     return out;
 }
 
-int lol_sha(char *hash) {
+char *lol_sha(const char *str, int length) {
+    int n;
+    SHA512_CTX c;
+    unsigned char digest[SHA512_DIGEST_LENGTH];
+    char *out = (char*)malloc(129);
     
-    return 1;
+    SHA512_Init(&c);
+    
+    SHA512_Update(&c, str, strlen(str));
+    SHA512_Final(digest, &c);
+
+    for(n=0;n<SHA512_DIGEST_LENGTH;n++) {
+        snprintf(&(out[n*2]), 128, "%02x", (unsigned int)digest[n]);
+    }
+
+    return out;
 }

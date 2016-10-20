@@ -4,5 +4,5 @@
 #include <openssl/sha.h>
 #define MAX_LEN 2048
 char *lol_md5(const char *str, int length);
-int lol_sha(char *hash);
+char *lol_sha(const char *str, int length);
 #endif
