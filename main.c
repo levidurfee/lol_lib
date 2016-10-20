@@ -10,6 +10,7 @@
 #include "inc/lol_primez.h"
 #include "inc/lol_netz.h"
 #include "inc/lol_sqlite.h"
+#include "inc/lol_hash.h"
 
 #define lol_clear() printf("\033[H\033[J")
 
@@ -23,17 +24,25 @@ int main(int argc, char *argv[]) {
     int c, mode;
     mode = 0;
     
-    while ((c = getopt(argc, argv, "p:s:c:db")) != -1) {
+    while ((c = getopt(argc, argv, "p:s:c:dbh:")) != -1) {
         switch (c) {
             case 'p': mode = 1; break;
             case 's': mode = 2; break;
             case 'c': mode = 3; break;
             case 'd': mode = 4; break;
             case 'b': mode = 5; break;
+            case 'h': mode = 6; break;
             default:
                 show_options();
                 return -1;
         }
+    }
+    
+    /* hash stuff */
+    if(mode == 6) {
+        char *output = lol_md5(argv[2], strlen(argv[2]));
+        printf("%s\n", output);
+        free(output);
     }
     
     /* binary tree stuff */
