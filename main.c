@@ -27,26 +27,26 @@ int main(int argc, char *argv[]) {
     
     while ((c = getopt(argc, argv, "p:s:c:dbh:o")) != -1) {
         switch (c) {
-            case 'p': mode = 1; break;
-            case 's': mode = 2; break;
-            case 'c': mode = 3; break;
-            case 'd': mode = 4; break;
-            case 'b': mode = 5; break;
-            case 'h': mode = 6; break;
-            case 'o': mode = 7; break;
+            case 'p': mode = 1; break;  // prime stuff
+            case 's': mode = 2; break;  // server stuff
+            case 'c': mode = 3; break;  // client server stuff
+            case 'd': mode = 4; break;  // sqlite db stuff
+            case 'b': mode = 5; break;  // binary tree
+            case 'h': mode = 6; break;  // hash example
+            case 'o': mode = 7; break;  // object example
             default:
                 show_options();
                 return -1;
         }
     }
     
-    /* object stuff */
+    /* object stuff / function pointers */
     if(mode == 7) {
-        lol_Obj lo;
-        lo = lol_obj_new();
-        int result;
-        result = lo.add_p(4, 4);
-        printf("%i\n", result);
+        lol_Obj lo;                 // declare the object
+        lo = lol_obj_new();         // initialize the object
+        int result;                 // declare an int to store the result in
+        result = lo.add_p(128, atoi(argv[2]));    // call the function add
+        printf("%i\n", result);     // print the results
     }
     
     /* hash stuff */
