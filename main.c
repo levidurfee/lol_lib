@@ -41,10 +41,14 @@ int main(int argc, char *argv[]) {
     /* hash stuff */
     if(mode == 6) {
         char *output = lol_md5(argv[2]);
-        printf("md5: %s\n", output);
+        printf("md5: %s\n\nb64\n", output);
+        lol_b64(output);
+        
+        printf("\n\n");
         
         output = lol_sha(argv[2]);
-        printf("sha512: %s\n", output);
+        printf("sha512: %s\n\nb64\n", output);
+        lol_b64(output);
         
         free(output); // not sure if this is a bad place for this
     }

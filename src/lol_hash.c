@@ -41,3 +41,16 @@ char *lol_sha(const char *str) {
 
     return out;
 }
+
+int lol_b64(const char *str) {
+    BIO *bio, *b64;
+
+    b64 = BIO_new(BIO_f_base64());
+    bio = BIO_new_fp(stdout, BIO_NOCLOSE);
+    BIO_push(b64, bio);
+    BIO_write(b64, str, strlen(str));
+    BIO_flush(b64);
+
+    BIO_free_all(b64);
+    return 1;
+}
