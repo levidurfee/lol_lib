@@ -5,40 +5,32 @@
 #include <openssl/sha.h>
 #include "lol_hash.h"
 
-char *lol_md5(const char *str, int length) {
-    int n;
-    MD5_CTX c;
-    unsigned char digest[16];
-    char *out = (char*)malloc(33);
+char *lol_md5(const char *str) {
+    int n;                          // declare before loop
+    MD5_CTX c;                      // declare md5 context
+    unsigned char digest[16];       // digest
+    char *out = (char*)malloc(33);  // allocate 32+1
 
-    MD5_Init(&c);
+    MD5_Init(&c);                   // initialize md5 context
 
-    while(length > 0) {
-        if (length > 512) {
-            MD5_Update(&c, str, 512);
-        } else {
-            MD5_Update(&c, str, length);
-        }
-        length -= 512;
-        str += 512;
-    }
+    MD5_Update(&c, str, strlen(str));
 
     MD5_Final(digest, &c);
 
     for(n=0;n<16;++n) {
-        snprintf(&(out[n*2]), 16*2, "%02x", (unsigned int)digest[n]);
+        snprintf(&(out[n*2]), 32, "%02x", (unsigned int)digest[n]);
     }
 
     return out;
 }
 
-char *lol_sha(const char *str, int length) {
-    int n;
-    SHA512_CTX c;
-    unsigned char digest[SHA512_DIGEST_LENGTH];
-    char *out = (char*)malloc(129);
+char *lol_sha(const char *str) {
+    int n;                                      // declare before loop
+    SHA512_CTX c;                               // declare sha512
+    unsigned char digest[SHA512_DIGEST_LENGTH]; // digest
+    char *out = (char*)malloc(129);             // allocatte 128+1
     
-    SHA512_Init(&c);
+    SHA512_Init(&c);                            // initialize sha512 ctx
     
     SHA512_Update(&c, str, strlen(str));
     SHA512_Final(digest, &c);

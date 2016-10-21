@@ -40,11 +40,13 @@ int main(int argc, char *argv[]) {
     
     /* hash stuff */
     if(mode == 6) {
-        char *output = lol_md5(argv[2], strlen(argv[2]));
-        printf("%s\n", output);
-        output = lol_sha(argv[2], strlen(argv[2]));
-        printf("%s\n", output);
-        free(output);
+        char *output = lol_md5(argv[2]);
+        printf("md5: %s\n", output);
+        
+        output = lol_sha(argv[2]);
+        printf("sha512: %s\n", output);
+        
+        free(output); // not sure if this is a bad place for this
     }
     
     /* binary tree stuff */
