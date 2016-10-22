@@ -4,6 +4,7 @@
 typedef struct {
     int id;
     char *prime;
+    char *hash;
 } lol_sl;
 
 int lol_sl_add(char *table, char *dbname, lol_sl lol_sl);

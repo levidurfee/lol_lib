@@ -184,8 +184,18 @@ int thread_test(lol_arg *arg, char *data) {
         srand(time(NULL));              // feed the machine
         l_prime(p_size, prime, 0);      // bits, prime ptr, safe prime
         
+        char *output = lol_md5(prime);
+        
+        lol_sl lsl;
+        lsl.id = 1;
+        lsl.prime = prime;
+        lsl.hash = output;
+        if(lol_sl_add("PRIMES", "dbs/primes.db", lsl)) {
+            printf("Added row\n");
+        }
+        
         /* copy the tid & prime to the pointer */
-        sprintf(data, "tid: %i prime: %s", tid, prime);
+        sprintf(data, "tid: %i prime: %s hash: %s", tid, prime, output);
         arg->cur++;                     // increment the pointer
         
         /* Write the prime to the file */
