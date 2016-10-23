@@ -16,8 +16,8 @@ int lol_sl_add(char *table, char *dbname, lol_sl lol_sl) {
     
     char sql[2048];
     /* insert a new row into the table */
-    sprintf(sql, "INSERT INTO %s (PRIME, HASH) VALUES ('%s', '%s');", 
-        table, lol_sl.prime, lol_sl.hash);
+    sprintf(sql, "INSERT INTO %s (PRIME, HASH, BITS) VALUES ('%s', '%s', '%i');", 
+        table, lol_sl.prime, lol_sl.hash, lol_sl.bits);
     
     //printf("%s\n", sql);
     

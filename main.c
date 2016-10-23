@@ -190,6 +190,7 @@ int thread_test(lol_arg *arg, char *data) {
         lsl.id = 1;
         lsl.prime = prime;
         lsl.hash = output;
+        lsl.bits = arg->bit;
         if(lol_sl_add("PRIMES", "dbs/primes.db", lsl)) {
             printf("Added row\n");
         }
