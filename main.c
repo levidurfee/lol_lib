@@ -184,7 +184,7 @@ int thread_test(lol_arg *arg, char *data) {
         srand(time(NULL));              // feed the machine
         l_prime(p_size, prime, 0);      // bits, prime ptr, safe prime
         
-        char *output = lol_md5(prime);
+        char *output = lol_sha(prime);
         
         lol_sl lsl;
         lsl.id = 1;
