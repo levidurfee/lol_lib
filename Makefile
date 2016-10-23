@@ -9,7 +9,7 @@ DEPS := $(patsubst %.c,$(OBJDIR)/%.d,$(SRCS))
 
 DEBUG = -g
 INCLUDES = -I./inc
-CFLAGS = $(DEBUG) -Wall -pedantic $(INCLUDES) -c -fopenmp
+CFLAGS = $(DEBUG) -Wall -pedantic $(INCLUDES) -std=c11 -c -fopenmp
 LDFLAGS = -fopenmp -pthread -lcrypto -Wall -std=c11 -lsqlite3
 LIBS = -lm -fopenmp -latomic
 
