@@ -10,7 +10,7 @@ DEPS := $(patsubst %.c,$(OBJDIR)/%.d,$(SRCS))
 DEBUG = -g
 INCLUDES = -I./inc
 CFLAGS = $(DEBUG) -Wall -pedantic $(INCLUDES) -std=c11 -c -fopenmp
-LDFLAGS = -fopenmp -pthread -L /usr/local/ssl/lib/libcrypto.a -lcrypto -Wall -std=c11 -lsqlite3
+LDFLAGS = -fopenmp -pthread -lcrypto -Wall -std=c11 -lsqlite3
 LIBS = -lm -fopenmp -latomic
 
 DEPENDS = -MT $@ -MD -MP -MF $(subst .o,.d,$@)
